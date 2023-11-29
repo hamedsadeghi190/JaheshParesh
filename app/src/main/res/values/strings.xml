@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">جهش</string>
+    <string name="title_home">محتوی</string>
+    <string name="title_books">کتاب</string>
+    <string name="title_basket">سبد خرید</string>
+    <string name="title_profile">پروفایل</string>
+    <string name="title_support">پشتیبانی</string>
+    <string name="AppVersion">نسخه 1.0.0</string>
+    <string name="mobile">شماره همراه</string>
+    <string name="send_code">ارسال کد</string>
+    <string name="login">ورود</string>
+    <string name="ghavanin">با ورود ثبت نام تمامی قوانین و شرایط را می پذیرم.</string>
+    <string name="phone_exp">09120000000</string>
+    <string name="wait">کمی صبر کنید...</string>
+    <string name="change_number">تغییر شماره همراه</string>
+    <string name="resend_code">ارسال مجدد کدتایید</string>
+    <string name="ramaining">زمان باقی مانده ارسال کد</string>
+    <string name="ramaining_time">01:56</string>
+    <string name="zemne_khedmat">دوره های ضمن خدمت فرهنگیان</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="moghadame">مقدمه</string>
+    <string name="amount">قیمت</string>
+    <string name="tasviye">تسویه حساب</string>
+
+</resources>

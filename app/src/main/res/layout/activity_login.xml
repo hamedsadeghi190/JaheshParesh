@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_round" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/yekanbakh_regular"
+        android:hint="@string/mobile"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.rounded"
+        app:startIconDrawable="@drawable/smartphone">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/yekanbakh_regular"
+            android:hint="@string/phone_exp"
+            android:inputType="phone"
+
+            android:maxLength="11"
+            tools:ignore="HardcodedText">
+
+            <requestFocus></requestFocus>
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_send_code"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/purple_500"
+        android:fontFamily="@font/yekanbakh_regular"
+        android:text="@string/send_code"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:translationZ="900dp"
+        app:layout_constraintTop_toBottomOf="@+id/outlinedTextField" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/yekanbakh_regular"
+        android:gravity="center"
+        android:text="@string/ghavanin"
+        android:textColor="@color/purple_400"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="SpUsage,TextSizeCheck" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cly_wating"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background=" #D1ECF2F0"
+        android:translationZ="1000dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_waiting_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="128dp"
+            android:layout_marginTop="136dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/txt_wait"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/yekanbakh_regular"
+            android:gravity="center"
+            android:text="@string/wait"
+            android:textColor="@color/black_text"
+            android:textSize="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/img_waiting_logo"
+            tools:ignore="SpUsage,TextSizeCheck"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ProgressBar
+            android:id="@+id/Prg_loading"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="110dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress"
+            android:progressDrawable="@drawable/progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_50">#F4F0FF</color>
+    <color name="purple_100">#E8E0FF</color>
+    <color name="purple_200">#D1C1FF</color>
+    <color name="purple_300">#BAA1FF</color>
+    <color name="purple_400">#D1C1FF</color>
+    <color name="purple_500">#A382FF</color>
+    <color name="purple_600">#694ABF</color>
+    <color name="purple_700">#463280</color>
+    <color name="primeryColor">#714AE2</color>
+    <color name="statusBar">#7B79F1</color>
+    <color name="purple_800">#231940</color>
+    <color name="purple_900">#0E0A1A</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black_text">#3C4B46</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="red">#D80032</color>
+    <color name="Yellow">#F8FF95</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="backcolor">#EEEFF2</color>
+    <color name="gray">#6D6D6D</color>
+    <color name="gray_70">#706D6D6D</color>
+    <color name="CardColor">#7B79F1</color>
+    <color name="login_statusBar">#E7E4F4</color>
+</resources>
