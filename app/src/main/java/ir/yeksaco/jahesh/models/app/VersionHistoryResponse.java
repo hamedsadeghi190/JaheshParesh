@@ -30,4 +30,57 @@ public class VersionHistoryResponse {
     public String MyketUrl;
     @SerializedName("updateOn")
     public String UpdateOn;
+
+    public int getId() {
+
+        return Id;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public String getVersion() {
+        return Version;
+    }
+
+    public int getVersionCode() {
+        return VersionCode;
+    }
+
+    public List<String> getChanges() {
+        return Changes;
+    }
+
+    public String getReleaseDate() {
+        return ReleaseDate;
+    }
+
+    public boolean isActive() {
+        return IsActive;
+    }
+
+    public boolean isForce() {
+        return IsForce;
+    }
+
+    public String getPlayUrl() {
+        return PlayUrl;
+    }
+
+    public String getDirectUrl() {
+        return DirectUrl;
+    }
+
+    public String getBazarUrl() {
+        return BazarUrl;
+    }
+
+    public String getMyketUrl() {
+        return MyketUrl;
+    }
+
+    public String getUpdateOn() {
+        return UpdateOn;
+    }
 }

@@ -1,27 +1,13 @@
 package ir.yeksaco.jahesh.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.provider.Settings;
-
-import ir.yeksaco.jahesh.Messages;
-import ir.yeksaco.jahesh.common.enums.DeviceType;
-import ir.yeksaco.jahesh.common.enums.FailType;
-import ir.yeksaco.jahesh.models.general.ResponseBase;
-import ir.yeksaco.jahesh.models.users.*;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.Gson;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -31,14 +17,24 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ir.yeksaco.jahesh.MainActivity;
-import ir.yeksaco.jahesh.R;
-import ir.yeksaco.jahesh.webService.services.UserService;
-import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-// dependencies
-import android.text.Editable;
-import android.text.TextWatcher;
+import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+
+import ir.yeksaco.jahesh.Messages;
+import ir.yeksaco.jahesh.R;
+import ir.yeksaco.jahesh.common.enums.DeviceType;
+import ir.yeksaco.jahesh.common.enums.FailType;
+import ir.yeksaco.jahesh.models.general.ResponseBase;
+import ir.yeksaco.jahesh.models.users.UserDevice;
+import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
+import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
+import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
+import ir.yeksaco.jahesh.webService.services.UserService;
 
 public class VerifyLoginActivity extends AppCompatActivity {
     MaterialButton btnVerify;
@@ -88,7 +84,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
     }
 
     private void startTimer() {
-        timer = new CountDownTimer(30000, 1000) {
+        timer = new CountDownTimer(120000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -100,7 +96,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
                 txt_remain_time.setText(Minutes + ":" + sec);
 
-                long percent = ((millisUntilFinished) * 100) / (30000);
+                long percent = ((millisUntilFinished) * 100) / (120000);
                 Log.i("jahesh", "millisUntilFinished: " + millisUntilFinished + " percent : " + ((100) - (int) percent));
 
 
@@ -129,11 +125,21 @@ public class VerifyLoginActivity extends AppCompatActivity {
         txt_change_numebr = findViewById(R.id.txt_change_numebr);
         txt_resend_code = findViewById(R.id.txt_resend_code);
 
-        edt_pin_I = findViewById(R.id.edt_pin_I);
-        edt_pin_II = findViewById(R.id.edt_pin_II);
-        edt_pin_III = findViewById(R.id.edt_pin_III);
-        edt_pin_IV = findViewById(R.id.edt_pin_IV);
-        edt_pin_V = findViewById(R.id.edt_pin_V);
+        final PinEntryEditText pinEntry = (PinEntryEditText) findViewById(R.id.txt_pin_entry2);
+        if (pinEntry != null) {
+            pinEntry.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
+                @Override
+                public void onPinEntered(CharSequence str) {
+
+                    if (str.toString().length()==5) {
+                        btnVerify.setEnabled(true);
+                        verifyCode = Integer.parseInt(str.toString());
+                    } else {
+                        btnVerify.setEnabled(false);
+                    }
+                }
+            });
+        }
     }
 
     private void bindEvents() {
@@ -173,9 +179,12 @@ public class VerifyLoginActivity extends AppCompatActivity {
                     public void OnSuccess(Object response) {
 
                         ResponseBase<VerifyCodeResponse> apiRresponse = (ResponseBase<VerifyCodeResponse>) response;
+                        Gson gson = new Gson();
+                        String savedInfo2 = gson.toJson(apiRresponse);
+                        Log.e("jaheshTag", savedInfo2);
 
                         if (apiRresponse.IsSuccess) {
-                            Gson gson = new Gson();
+
                             VerifyCodeResponse data = (VerifyCodeResponse) apiRresponse.Data;
                             String savedInfo = gson.toJson(data);
 
@@ -189,7 +198,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                             finishAffinity();
                             startActivity(myIntent);
                         } else {
-                           // Toast.makeText(getApplicationContext(), Messages.MobileInvalid, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), Messages.MobileInvalid, Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -199,147 +208,20 @@ public class VerifyLoginActivity extends AppCompatActivity {
                         Log.e("jaheshTag", message);
                     }
                 };
-                verifyCode = Integer.parseInt(edt_pin_I.getText().toString() + edt_pin_II.getText().toString() + edt_pin_III.getText().toString() + edt_pin_IV.getText().toString() + edt_pin_V.getText().toString());
 
                 VerifyCodeRequest model = new VerifyCodeRequest();
                 model.setMobileNumber(mobile);
                 model.setVerifyCode(verifyCode);
                 model.setUserDevice(getSystemDetail());
+
+                Gson gson = new Gson();
+                String savedInfo3 = gson.toJson(model);
+                Log.e("jaheshTag", savedInfo3);
+
                 userService.VerifyCode(listener, model);
 
             }
         });
-
-        edt_pin_I.requestFocus();
-        edt_pin_II.setCursorVisible(true);
-        edt_pin_III.setCursorVisible(true);
-        edt_pin_IV.setCursorVisible(true);
-        edt_pin_V.setCursorVisible(true);
-
-        edt_pin_I.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    edt_pin_I.clearFocus();
-                    edt_pin_II.requestFocus();
-                }
-            }
-        });
-
-
-        edt_pin_II.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    edt_pin_II.clearFocus();
-                    edt_pin_III.requestFocus();
-                } else {
-                    edt_pin_II.clearFocus();
-                    edt_pin_I.requestFocus();
-                }
-            }
-        });
-
-
-        edt_pin_III.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    edt_pin_III.clearFocus();
-                    edt_pin_IV.requestFocus();
-                } else {
-                    edt_pin_II.clearFocus();
-                    edt_pin_III.requestFocus();
-                }
-            }
-        });
-
-        edt_pin_IV.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    edt_pin_IV.clearFocus();
-                    edt_pin_V.requestFocus();
-                } else {
-                    edt_pin_IV.clearFocus();
-                    edt_pin_V.requestFocus();
-                }
-            }
-        });
-
-        edt_pin_I.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-
-                } else {
-                    edt_pin_V.clearFocus();
-                    edt_pin_IV.requestFocus();
-                }
-            }
-        });
-
-
     }
 
     @SuppressLint("HardwareIds")

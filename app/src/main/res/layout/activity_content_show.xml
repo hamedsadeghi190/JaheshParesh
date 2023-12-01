@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEDF6"
+    android:layoutDirection="rtl"
     tools:context=".ui.activities.ContentShowActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_content_show"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:gravity="right"
+        android:gravity="start"
+        android:layoutDirection="rtl"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="۱۶dp"
         tools:layout_editor_absoluteY="۰dp">
@@ -21,6 +23,11 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/btn_back_to_list"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_back" />
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
@@ -33,120 +40,130 @@
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
-            <ImageView
-                android:id="@+id/btn_back_to_list"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_back" />
 
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/top_card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_margin="15dp"
-        android:backgroundTint="#DCDAEF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/appbar_content_show">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:layout_margin="15dp"
-            tools:layout_editor_absoluteX="14dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_content_title"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/yekan_bakh_light"
-                android:gravity="center"
-                android:text="درس پژوهشی تدریس اشکال هندسی"
-                android:textColor="#131313"
-                android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ScrollView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/top_card"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_content_title">
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:backgroundTint="#DCDAEF"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="5dp"
+                app:layout_constraintTop_toBottomOf="@id/appbar_content_show">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    tools:layout_editor_absoluteX="14dp">
 
                     <TextView
-                        android:id="@+id/tv_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:justificationMode="inter_word"
+                        android:id="@+id/tv_content_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="15dp"
                         android:fontFamily="@font/yekan_bakh_light"
-                        android:gravity="right"
-                        android:text="..."
+                        android:gravity="center"
+                        android:text="درس پژوهشی تدریس اشکال هندسی"
                         android:textColor="#131313"
-                        android:textSize="17dp" />
-
-                </LinearLayout>
-            </ScrollView>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+                        android:textSize="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_ghemat"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="15dp"
-        android:backgroundTint="#DCDAEF"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        app:layout_constraintTop_toBottomOf="@id/top_card">
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_content_title">
 
-        <TextView
-            android:id="@+id/tv_amount"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp">
+
+                            <TextView
+                                android:id="@+id/tv_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/yekan_bakh_light"
+                                android:gravity="right"
+                                android:justificationMode="inter_word"
+                                android:text="..."
+                                android:textColor="#131313"
+                                android:textSize="17dp" />
+
+                        </LinearLayout>
+                    </ScrollView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_ghemat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/yekan_bakh_light"
-            android:gravity="right|center_vertical"
-            android:paddingRight="10dp"
-            android:text="قیمت :"
-            android:textColor="@color/purple_700" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:backgroundTint="#DCDAEF"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="5dp"
+            app:layout_constraintTop_toBottomOf="@id/top_card">
 
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/yekan_bakh_light"
+                android:gravity="right|center_vertical"
+                android:paddingRight="10dp"
+                android:text="قیمت :"
+                android:textColor="@color/purple_700" />
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_buy_action"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/purple_700"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="5dp"
-        app:layout_constraintTop_toBottomOf="@id/card_ghemat">
-
-        <TextView
-            android:id="@+id/btn_add_to_basket"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_buy_action"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/yekan_bakh_light"
-            android:gravity="center"
-            android:text="افزودن به سبد خرید"
-            android:textColor="@color/white" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="48dp"
+            android:layout_margin="15dp"
+            android:backgroundTint="@color/purple_700"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="5dp"
+            app:layout_constraintTop_toBottomOf="@id/card_ghemat">
+
+            <TextView
+                android:id="@+id/btn_add_to_basket"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/yekan_bakh_light"
+                android:gravity="center"
+                android:text="افزودن به سبد خرید"
+                android:textColor="@color/white" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

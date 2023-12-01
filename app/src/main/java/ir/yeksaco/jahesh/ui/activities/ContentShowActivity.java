@@ -111,7 +111,6 @@ public class ContentShowActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
                 String basketString = sharedPreferences.getString("Basket", "");
 
-                Log.d("jaheshTag", basketString);
                 BasketModel basketData;
                 Gson gson = new Gson();
                 if (basketString.isEmpty()) {

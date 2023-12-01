@@ -23,5 +23,8 @@
     <string name="moghadame">مقدمه</string>
     <string name="amount">قیمت</string>
     <string name="tasviye">تسویه حساب</string>
+    <string name="title_activity_update">UpdateActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

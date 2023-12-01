@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".ui.activities.LoginActivity">
 
 
@@ -20,7 +21,6 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,10 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -111,13 +112,31 @@
             tools:ignore="RtlHardcoded,SpeakableTextPresentCheck" />
     </LinearLayout>
 
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+        android:id="@+id/txt_pin_entry2"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:cursorVisible="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="5"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        android:fontFamily="@font/iransans_dn_fa_light"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:pinAnimationType="popIn"
+        app:pinBackgroundDrawable="@drawable/border"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/txt_change_numebr"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/yekanbakh_regular"
+        android:fontFamily="@font/iransans_dn_fa_m"
         android:gravity="center"
         android:text="@string/change_number"
         android:textColor="@color/gray_70"
@@ -125,7 +144,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ly_pinEntery"
+        app:layout_constraintTop_toBottomOf="@+id/txt_pin_entry2"
         tools:ignore="SpUsage,TextSizeCheck" />
 
     <ImageView
@@ -176,31 +195,31 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/yekanbakh_regular"
         android:gravity="center"
-        android:visibility="invisible"
         android:text="@string/resend_code"
         android:textColor="@color/purple_300"
         android:textSize="16dp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Prg_remain_time"
         tools:ignore="SpUsage,TextSizeCheck" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/txt_remain_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:fontFamily="@font/yekanbakh_regular"-->
-<!--        android:gravity="center"-->
-<!--        android:text="@string/ramaining"-->
-<!--        android:textColor="@color/gray"-->
-<!--        android:textSize="16dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/Prg_remain_time"-->
-<!--        tools:ignore="SpUsage,TextSizeCheck" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/txt_remain_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="36dp"-->
+    <!--        android:layout_marginTop="5dp"-->
+    <!--        android:fontFamily="@font/yekanbakh_regular"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/ramaining"-->
+    <!--        android:textColor="@color/gray"-->
+    <!--        android:textSize="16dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/Prg_remain_time"-->
+    <!--        tools:ignore="SpUsage,TextSizeCheck" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_verify"

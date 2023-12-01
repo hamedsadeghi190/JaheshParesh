@@ -55,8 +55,9 @@
         <item name="android:textColor">@color/Yellow</item>
         <item name="android:fontFamily">@font/yekanbakh_regular</item>
     </style>
+
     <style name="BottomNavigation.InActiveItemTextAppearance" parent="TextAppearance.AppCompat">
-<!--        <item name="android:textStyle">bold</item>-->
+        <!--        <item name="android:textStyle">bold</item>-->
         <item name="android:textColor">@color/red</item>
         <item name="android:fontFamily">@font/iransans_dn_fa_light</item>
     </style>
@@ -66,6 +67,7 @@
         <item name="android:strokeColor">@color/purple_400</item>
         <item name="cornerSize">10dp</item>
     </style>
+
     <style name="ShapeAppearanceOverlay.App.rounded.five" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="android:strokeColor">@color/purple_400</item>
