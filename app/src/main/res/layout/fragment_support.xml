@@ -5,12 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.support.SupportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="28dp"
+        android:elevation="@dimen/cardview_default_radius"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:indeterminateTintMode="src_in" />
+
+    <WebView
+        android:id="@+id/wb_support"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="25dp"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginBottom="80dp">
+
+    </WebView>
 
 </FrameLayout>

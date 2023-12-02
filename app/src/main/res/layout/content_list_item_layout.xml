@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:backgroundTint="#DCDAEF"
+        android:backgroundTint="@color/main_color_list"
         app:cardCornerRadius="15dp"
  >
 
@@ -37,7 +37,7 @@
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/yekan_bakh_light"
                 android:text="@string/moghadame"
-                android:textColor="#131313"
+                android:textColor="#000"
                 android:textSize="16dp"
                 android:gravity="right"
                 app:layout_constraintBottom_toBottomOf="parent"

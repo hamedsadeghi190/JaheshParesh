@@ -15,9 +15,9 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import ir.yeksaco.jahesh.MainActivity;
-import ir.yeksaco.jahesh.Messages;
 import ir.yeksaco.jahesh.MyApp;
 import ir.yeksaco.jahesh.R;
+import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
 import ir.yeksaco.jahesh.models.content.GetMainMenuResponse;

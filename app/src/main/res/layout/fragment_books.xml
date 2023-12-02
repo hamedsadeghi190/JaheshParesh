@@ -20,11 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="220dp"
-            android:fontFamily="@font/yekanbakh_regular"
+            android:layout_marginBottom="170dp"
+            android:fontFamily="@font/yekan_bakh_semi_bold"
             android:gravity="center"
             android:text="این  قسمت در دست ساخت است."
-            android:textColor="@color/purple_600"
+            android:textColor="@color/main_color"
             android:textSize="24dp" />
     </RelativeLayout>
 

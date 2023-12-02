@@ -24,8 +24,7 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-
-import ir.yeksaco.jahesh.Messages;
+import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.DeviceType;
 import ir.yeksaco.jahesh.common.enums.FailType;

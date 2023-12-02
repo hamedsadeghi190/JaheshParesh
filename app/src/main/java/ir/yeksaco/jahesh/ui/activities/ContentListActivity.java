@@ -18,6 +18,7 @@ import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.adaptors.ContentAdaptor;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.content.GetMenuResponse;
+import ir.yeksaco.jahesh.models.content.LoadedData;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.ContentService;
@@ -29,6 +30,7 @@ public class ContentListActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private ContentService contentService;
     public String parentName;
+    ArrayList<LoadedData> cached;
     ArrayList<GetMenuResponse> data;
 
     @Override
@@ -38,9 +40,12 @@ public class ContentListActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         RemoveStausBar();
         initial();
+
+        cached = new ArrayList<LoadedData>();
         Bundle bundle = getIntent().getExtras();
         parentName = bundle.getString("parentName");
         LoadData(bundle.getInt("contentId"));
+
         bindControls();
 
     }
@@ -97,6 +102,11 @@ public class ContentListActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(Object response) {
                 data  = ((ResponseBase<ArrayList<GetMenuResponse>>) response).Data;
+                LoadedData newData = new LoadedData();
+
+                newData.ContentId = contentId;
+                newData.Data.addAll(data);
+                cached.add(newData);
                 bindAdaptor();
                 tv_parent.setText(parentName);
             }
@@ -107,5 +117,22 @@ public class ContentListActivity extends AppCompatActivity {
             }
         };
         contentService.MenuByParentId(listener,contentId);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(cached.size() <=1)
+        {
+            super.onBackPressed();
+            finish();
+        }
+        else
+        {
+            cached.remove(cached.size()-1);
+            data =  cached.get(cached.size()-1).Data;
+
+            bindAdaptor();
+        }
     }
 }

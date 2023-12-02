@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import java.util.List;
 
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
+import ir.yeksaco.jahesh.utility.DownloadFileAsync;
 import ir.yeksaco.jahesh.webService.services.ContentService;
 
 public class UpdateActivity extends AppCompatActivity {
@@ -76,19 +79,19 @@ public class UpdateActivity extends AppCompatActivity {
 //                DownloadFileAsync downloadFileAsync = new DownloadFileAsync(fileUrl, localFilePath, prg_download);
 //                downloadFileAsync.execute();
 //                String path = Environment.getExternalStorageDirectory().getAbsolutePath() ;
-//                File file = new File(path);
-//
-//                if (!file.exists()) {
-//                    if (!file.mkdirs()) {
-//                        Log.e("TAG", "Failed to create directory");
-//                    }
-//                }
-//                Log.i("jaheshTag", "download finished");
-////                Uri uri = Uri.parse(localFilePath);
-////                Intent intent = new Intent(Intent.ACTION_VIEW);
-////                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-////                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                startActivity(intent);
+////                File file = new File(path);
+////
+////                if (!file.exists()) {
+////                    if (!file.mkdirs()) {
+////                        Log.e("TAG", "Failed to create directory");
+////                    }
+////                }
+////                Log.i("jaheshTag", "download finished");
+//                Uri uri = Uri.parse(localFilePath);
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
             }
         });
     }

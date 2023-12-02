@@ -1,4 +1,4 @@
-package ir.yeksaco.jahesh;
+package ir.yeksaco.jahesh.common.constants;
 
 public  class Messages {
     public static int CodeVersion = 103;
