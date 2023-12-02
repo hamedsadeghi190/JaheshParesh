@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.FailType;
@@ -26,9 +27,10 @@ import ir.yeksaco.jahesh.models.buy.basket.*;
 
 public class ContentShowActivity extends AppCompatActivity {
     private ContentService contentService;
-    public String parentName;
+    public String title;
     public int contentId;
-    TextView tv_title, tv_content_title, tv_amount, tv_content, btn_add_to_basket;
+    TextView tv_title, tv_amount, tv_content, btn_add_to_basket,tv_basket;
+    NotificationBadge nbadge;
     WebView wbv_content;
     ImageView btnBack;
     ContentDetailsResponse data;
@@ -40,9 +42,10 @@ public class ContentShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_content_show);
         getSupportActionBar().hide();
         RemoveStausBar();
+        nbadge = findViewById(R.id.nbadge);
         contentService = new ContentService();
         Bundle bundle = getIntent().getExtras();
-        parentName = bundle.getString("parentName");
+        title = bundle.getString("title");
         contentId = bundle.getInt("contentId");
 
         BindControls();
@@ -54,6 +57,7 @@ public class ContentShowActivity extends AppCompatActivity {
         if (!basketString.isEmpty()) {
             Gson gson = new Gson();
             BasketModel basketData = gson.fromJson(basketString, BasketModel.class);
+            nbadge.setNumber(basketData.getContents().size());
             if (basketData.Exist(contentId)) {
                 btn_add_to_basket.setText("حذف از سبد خرید");
                 Exist = true;
@@ -66,7 +70,7 @@ public class ContentShowActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(Object response) {
                 data = ((ResponseBase<ContentDetailsResponse>) response).Data;
-                tv_content_title.setText(data.title);
+
                 tv_content.setText(data.content);
                 tv_amount.setText("قیمت : " + data.price + " تومان ");
 
@@ -91,12 +95,12 @@ public class ContentShowActivity extends AppCompatActivity {
     private void BindControls() {
         btnBack = findViewById(R.id.btn_back_to_list);
         tv_title = findViewById(R.id.tv_title);
+        tv_basket = findViewById(R.id.tv_basket);
         tv_amount = findViewById(R.id.tv_amount);
-        tv_content_title = findViewById(R.id.tv_content_title);
         // wbv_content = findViewById(R.id.wbv_content);
         tv_content = findViewById(R.id.tv_content);
         btn_add_to_basket = findViewById(R.id.btn_add_to_basket);
-        tv_title.setText(parentName);
+        tv_title.setText(title);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +131,7 @@ public class ContentShowActivity extends AppCompatActivity {
                     btn_add_to_basket.setText("افزودن از سبد خرید");
                     Exist = false;
                 }
-
+                nbadge.setNumber(basketData.getContents().size());
                 String savedInfo = gson.toJson(basketData);
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.putString("Basket", savedInfo);
@@ -143,6 +147,6 @@ public class ContentShowActivity extends AppCompatActivity {
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.purple_700));
+        window.setStatusBarColor(this.getResources().getColor(R.color.main_color));
     }
 }

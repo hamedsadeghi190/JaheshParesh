@@ -26,19 +26,54 @@ import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.AppService;
 import ir.yeksaco.jahesh.webService.services.ContentService;
+import taimoor.sultani.sweetalert2.Sweetalert;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
     AppService appService;
     ContentService contentService;
 
+    Sweetalert alert;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        Initial();
         RemoveStausBar();
+
+
+        if (!MyApp.isNetworkAvailable()) {
+            showAlert();
+        }
+        Initial();
         CheckVersion();
+    }
+
+    private void showAlert() {
+        alert = new Sweetalert(this, Sweetalert.WARNING_TYPE)
+                .setTitleText("دسترسی اینترنت")
+                .setContentText("ارتباط اینترنت برقرار نیست.")
+                .showConfirmButton(true);
+        alert.setCancelButton("خروج", new Sweetalert.OnSweetClickListener() {
+            @Override
+            public void onClick(Sweetalert sDialog) {
+                sDialog.dismissWithAnimation();
+                finish();
+            }
+        });
+        alert.setConfirmButton("تلاش مجدد", new Sweetalert.OnSweetClickListener() {
+            @Override
+            public void onClick(Sweetalert sweetAlertDialog) {
+                if (MyApp.isNetworkAvailable()) {
+                    sweetAlertDialog.dismissWithAnimation();
+                }
+            }
+        });
+
+
+        alert.show();
+
+
     }
 
     private void Initial() {
@@ -50,7 +85,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.login_statusBar));
+        window.setStatusBarColor(this.getResources().getColor(R.color.main_color));
     }
 
     private void CheckVersion() {
@@ -85,6 +120,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             @Override
             public void OnFailed(FailType type, String message) {
+
                 Log.e("jaheshTag", message);
             }
         };
@@ -106,7 +142,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             VerifyCodeResponse User = gson.fromJson(info, VerifyCodeResponse.class);
             MyApp.ApiToken = User.Token;
-            Toast.makeText(getApplicationContext(), "LoadMainMenu", Toast.LENGTH_LONG).show();
             LoadMainMenu();
         }
     }

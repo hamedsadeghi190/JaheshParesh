@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.login_statusBar));
+        window.setStatusBarColor(this.getResources().getColor(R.color.white));
     }
     private void bindControls() {
         clyWating = findViewById(R.id.cly_wating);

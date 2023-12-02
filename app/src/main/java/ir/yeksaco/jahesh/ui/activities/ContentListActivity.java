@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.adaptors.ContentAdaptor;
 import ir.yeksaco.jahesh.common.enums.FailType;
-import ir.yeksaco.jahesh.models.ContentModel;
 import ir.yeksaco.jahesh.models.content.GetMenuResponse;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
@@ -26,6 +25,7 @@ import ir.yeksaco.jahesh.webService.services.ContentService;
 public class ContentListActivity extends AppCompatActivity {
 
     private RecyclerView contentsRecyclerView;
+    private TextView tv_parent;
     private RecyclerView.Adapter adapter;
     private ContentService contentService;
     public String parentName;
@@ -67,7 +67,7 @@ public class ContentListActivity extends AppCompatActivity {
                         else
                         {
                             Intent myIntent = new Intent(ContentListActivity.this, ContentShowActivity.class);
-                            myIntent.putExtra("parentName",parentName);
+                            myIntent.putExtra("title",content.getTitle());
                             myIntent.putExtra("contentId",content.getId());
                             startActivity(myIntent);
                         }
@@ -77,15 +77,19 @@ public class ContentListActivity extends AppCompatActivity {
     private void initial()
     {
         contentService = new ContentService();
+
         this.contentsRecyclerView = findViewById(R.id.rcv_contents);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         this.contentsRecyclerView.setLayoutManager(mLayoutManager);
+
+        this.tv_parent = findViewById(R.id.tv_parent);
+        tv_parent.setText(parentName);
     }
     private void RemoveStausBar() {
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(this.getResources().getColor(R.color.purple_500));
+        window.setStatusBarColor(this.getResources().getColor(R.color.main_color));
     }
 
     private void LoadData(int contentId) {
@@ -94,6 +98,7 @@ public class ContentListActivity extends AppCompatActivity {
             public void OnSuccess(Object response) {
                 data  = ((ResponseBase<ArrayList<GetMenuResponse>>) response).Data;
                 bindAdaptor();
+                tv_parent.setText(parentName);
             }
 
             @Override

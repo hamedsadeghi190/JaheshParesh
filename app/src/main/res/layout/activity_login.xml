@@ -74,7 +74,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="25dp"
-        android:backgroundTint="@color/purple_500"
+        android:backgroundTint="@color/main_color"
         android:fontFamily="@font/yekanbakh_regular"
         android:text="@string/send_code"
         android:textColor="@color/white"
@@ -90,7 +90,7 @@
         android:fontFamily="@font/yekanbakh_regular"
         android:gravity="center"
         android:text="@string/ghavanin"
-        android:textColor="@color/purple_400"
+        android:textColor="@color/bordercolor"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="SpUsage,TextSizeCheck" />

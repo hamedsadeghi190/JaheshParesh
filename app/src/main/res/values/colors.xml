@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    <color name="main_color">#FF5C58</color>-->
+    <color name="main_color">#cc0066</color>
+    <color name="main_color2">#D80036</color>
+    <color name="bordercolor">#F78CA2</color>
     <color name="purple_50">#F4F0FF</color>
     <color name="purple_100">#E8E0FF</color>
     <color name="purple_200">#D1C1FF</color>

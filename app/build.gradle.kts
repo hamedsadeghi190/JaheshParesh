@@ -10,8 +10,8 @@ android {
         applicationId = "ir.yeksaco.jahesh"
         minSdk = 22
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.2"
     }
 
     buildTypes {
@@ -46,6 +46,8 @@ dependencies {
     implementation("com.squareup.okhttp:okhttp:2.7.0")
     implementation("com.squareup.retrofit:converter-gson:2.0.0-beta2")
     implementation("com.alimuzaffar.lib:pinentryedittext:2.0.6")
+    implementation("com.github.taimoorsultani:android-sweetalert2:2.0.2")
+    implementation("com.nex3z:notification-badge:1.0.4")
    //implementation ("com.github.traex.rippleeffect:library:1.3")
    //implementation ("com.github.smarteist:autoimageslider:1.4.0")
 }
