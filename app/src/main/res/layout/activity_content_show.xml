@@ -8,7 +8,6 @@
     android:layoutDirection="rtl"
     tools:context=".ui.activities.ContentShowActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,13 +45,14 @@
                     android:gravity="right|center_vertical"
                     android:text="عنوان"
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    tools:ignore="RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tv_basket"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/yekan_bakh_light"
+                    android:fontFamily="@font/yekan_bakh_semi_bold"
                     android:gravity="right|center_vertical"
                     android:text="سبد خرید"
                     android:textColor="@color/white"
@@ -60,16 +60,14 @@
 
                 <LinearLayout
                     android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <com.nex3z.notificationbadge.NotificationBadge
                         android:id="@+id/nbadge"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:outlineAmbientShadowColor="@color/white"
-                        android:outlineSpotShadowColor="@color/white"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:textColor="@color/white"
                         app:nbMaxTextLength="2" />
                 </LinearLayout>
@@ -78,10 +76,28 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            android:id="@+id/panel_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/anw_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loadingdata" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/panel_data"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/top_card"

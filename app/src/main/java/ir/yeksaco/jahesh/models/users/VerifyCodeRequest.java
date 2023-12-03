@@ -1,7 +1,5 @@
 package ir.yeksaco.jahesh.models.users;
 
-import ir.yeksaco.jahesh.Messages;
-import ir.yeksaco.jahesh.common.enums.*;
 public class VerifyCodeRequest {
     public String MobileNumber;
     public int VerifyCode;
@@ -10,7 +8,7 @@ public class VerifyCodeRequest {
     public VerifyCodeRequest() {
     }
 
-    public VerifyCodeRequest(String mobileNumber, int verifyCode, ir.yeksaco.jahesh.models.users.UserDevice userDevice) {
+    public VerifyCodeRequest(String mobileNumber, int verifyCode, UserDevice userDevice) {
         MobileNumber = mobileNumber;
         VerifyCode = verifyCode;
         UserDevice = userDevice;

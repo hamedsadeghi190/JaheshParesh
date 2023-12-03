@@ -1,6 +1,5 @@
 package ir.yeksaco.jahesh.models.users;
 
-import ir.yeksaco.jahesh.Messages;
 import ir.yeksaco.jahesh.common.enums.*;
 
 public class UserDevice {

@@ -32,6 +32,7 @@
         <activity
             android:name=".PaymentCallBackActivity"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
             tools:ignore="AppLinkUrlError">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

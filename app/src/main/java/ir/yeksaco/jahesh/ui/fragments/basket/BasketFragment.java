@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,13 +38,15 @@ import ir.yeksaco.jahesh.webService.services.BuyService;
 public class BasketFragment extends Fragment {
     public static final int MODE_PRIVATE = 0x0000;
     private RecyclerView contentsRecyclerView;
-    public  CardView card_buy_action;
+    private ConstraintLayout cl_data, cl_empty;
+    public CardView card_buy_action;
     private BuyService buyService;
     private TextView btn_payment;
     private RecyclerView.Adapter adapter;
     CreateFactorModel factor;
-    private BasketModel basketData ;
+    private BasketModel basketData;
     private iBasketItemClickListner listner;
+
     public BasketFragment() {
         // Required empty public constructor
     }
@@ -64,6 +67,8 @@ public class BasketFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.card_buy_action = view.findViewById(R.id.card_buy_action);
+        this.cl_data = view.findViewById(R.id.cl_data);
+        this.cl_empty = view.findViewById(R.id.cl_empty);
 
         basketData = new BasketModel();
         buyService = new BuyService();
@@ -80,17 +85,26 @@ public class BasketFragment extends Fragment {
             Gson gson = new Gson();
             basketData = gson.fromJson(basketString, BasketModel.class);
 
-            factor = new CreateFactorModel();
-            for (int i = 0; i < basketData.getContents().size(); i++) {
-                factor.Ids.add(basketData.getContents().get(i).getContentId());
-            }
+            if(basketData.getContents().size()>0) {
+                factor = new CreateFactorModel();
+                for (int i = 0; i < basketData.getContents().size(); i++) {
+                    factor.Ids.add(basketData.getContents().get(i).getContentId());
+                }
 
-            this.btn_payment.setText(getString(R.string.tasviye) + "(" + basketData.getTotal() + " ریال" + ")");
+                this.btn_payment.setText(getString(R.string.tasviye) + "(" + basketData.getTotal() + " ریال" + ")");
+                cl_data.setVisibility(View.VISIBLE);
+                cl_empty.setVisibility(View.GONE);
+            }
+            else
+            {
+                cl_data.setVisibility(View.GONE);
+                cl_empty.setVisibility(View.VISIBLE);
+            }
         }
         listner = new iBasketItemClickListner() {
             @Override
             public void OnDeleted(int position) {
-               basketData.Contents.remove(position);
+                basketData.Contents.remove(position);
 
                 Gson gson = new Gson();
                 String savedInfo = gson.toJson(basketData);
@@ -101,17 +115,18 @@ public class BasketFragment extends Fragment {
                 myEdit.commit();
                 adapter.notifyDataSetChanged();
                 btn_payment.setText(getString(R.string.tasviye) + "(" + basketData.getTotal() + " ریال" + ")");
-                if(basketData.Contents.size()==0)
-                {
-                    card_buy_action.setVisibility(View.GONE);
+                if (basketData.Contents.size() == 0) {
+                    cl_data.setVisibility(View.GONE);
+                    cl_empty.setVisibility(View.VISIBLE);
                 }
             }
         };
-        adapter = new BasketAdaptor(basketData.Contents,listner);
+
+        adapter = new BasketAdaptor(basketData.Contents, listner);
         contentsRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        if(basketData.Contents.size()==0)
-        {
+
+        if (basketData.Contents.size() == 0) {
             card_buy_action.setVisibility(View.GONE);
         }
 

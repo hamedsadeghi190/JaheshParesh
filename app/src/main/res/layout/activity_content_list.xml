@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEDF6"
+    android:background="#fff"
     android:layoutDirection="rtl"
     tools:context=".ui.activities.ContentListActivity">
 
@@ -26,6 +26,16 @@
             android:paddingTop="50dp">
 
             <ImageView
+                android:id="@+id/btn_back_to_main"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_home"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+            <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
@@ -34,12 +44,22 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/menu2" />
 
+            <ImageView
+                android:id="@+id/btn_up_level"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_up"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
             <TextView
                 android:id="@+id/tv_parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/yekan_bakh_semi_bold"
-                android:text="درس پژوهشی"
+                android:text="عنوان"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -61,13 +81,44 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:paddingLeft="10dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_card"
-        tools:listitem="@layout/content_list_item_layout"
-        >
+        tools:listitem="@layout/content_list_item_layout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout
+        android:id="@+id/ly_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_card">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anw_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loadingdata" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/anw_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/nodata" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

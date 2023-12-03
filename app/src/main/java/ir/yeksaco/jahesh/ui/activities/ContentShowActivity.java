@@ -1,5 +1,6 @@
 package ir.yeksaco.jahesh.ui.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,12 +11,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.nex3z.notificationbadge.NotificationBadge;
 
+import ir.yeksaco.jahesh.MainActivity;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.buy.basket.BasketContentModel;
@@ -29,7 +33,8 @@ public class ContentShowActivity extends AppCompatActivity {
     private ContentService contentService;
     public String title;
     public int contentId;
-    TextView tv_title, tv_amount, tv_content, btn_add_to_basket,tv_basket;
+    TextView tv_title, tv_amount, tv_content, btn_add_to_basket, tv_basket;
+    LinearLayout panel_data, panel_loading;
     NotificationBadge nbadge;
     WebView wbv_content;
     ImageView btnBack;
@@ -42,7 +47,11 @@ public class ContentShowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_content_show);
         getSupportActionBar().hide();
         RemoveStausBar();
+
         nbadge = findViewById(R.id.nbadge);
+        panel_data = findViewById(R.id.panel_data);
+        panel_loading = findViewById(R.id.panel_loading);
+
         contentService = new ContentService();
         Bundle bundle = getIntent().getExtras();
         title = bundle.getString("title");
@@ -53,11 +62,13 @@ public class ContentShowActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         String basketString = sharedPreferences.getString("Basket", "");
 
-        Log.d("jaheshTag",basketString);
+        Log.d("jaheshTag", basketString);
         if (!basketString.isEmpty()) {
             Gson gson = new Gson();
+
             BasketModel basketData = gson.fromJson(basketString, BasketModel.class);
             nbadge.setNumber(basketData.getContents().size());
+
             if (basketData.Exist(contentId)) {
                 btn_add_to_basket.setText("حذف از سبد خرید");
                 Exist = true;
@@ -80,8 +91,8 @@ public class ContentShowActivity extends AppCompatActivity {
                     tv_content.setText(Html.fromHtml(data.content));
                 }
 
-
-
+                panel_loading.setVisibility(View.GONE);
+                panel_data.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -102,6 +113,16 @@ public class ContentShowActivity extends AppCompatActivity {
         btn_add_to_basket = findViewById(R.id.btn_add_to_basket);
         tv_title.setText(title);
 
+
+        tv_basket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ContentShowActivity.this, MainActivity.class);
+                myIntent.putExtra("target", "basket");
+                finishAffinity();
+                startActivity(myIntent);
+            }
+        });
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.*;
 
+import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
+
 public class BasketModel {
 
     public ArrayList<BasketContentModel> Contents;
@@ -13,7 +15,12 @@ public class BasketModel {
     public String Status;
 
     public boolean Exist(int id) {
-        return (Contents.stream().filter(x -> x.ContentId == id).count() > 0);
+        for (BasketContentModel content : Contents) {
+            if (content.ContentId == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public BasketModel() {
@@ -28,7 +35,6 @@ public class BasketModel {
         Contents = contents;
     }
 
-
     public int getTotal() {
         int total = 0;
         for (int i = 0; i < Contents.size(); i++) {
@@ -36,7 +42,6 @@ public class BasketModel {
         }
         return total;
     }
-
     public String getStatus() {
         return Status;
     }

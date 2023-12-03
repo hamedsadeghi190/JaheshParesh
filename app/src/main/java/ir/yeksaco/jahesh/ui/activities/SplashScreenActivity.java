@@ -16,6 +16,7 @@ import java.util.List;
 
 import ir.yeksaco.jahesh.MainActivity;
 import ir.yeksaco.jahesh.MyApp;
+import ir.yeksaco.jahesh.PaymentCallBackActivity;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.FailType;
@@ -40,7 +41,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         RemoveStausBar();
-
 
         if (!MyApp.isNetworkAvailable()) {
             showAlert();
