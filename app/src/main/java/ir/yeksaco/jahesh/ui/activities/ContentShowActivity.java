@@ -13,12 +13,9 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.nex3z.notificationbadge.NotificationBadge;
-
 import ir.yeksaco.jahesh.MainActivity;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.FailType;
@@ -83,7 +80,7 @@ public class ContentShowActivity extends AppCompatActivity {
                 data = ((ResponseBase<ContentDetailsResponse>) response).Data;
 
                 tv_content.setText(data.content);
-                tv_amount.setText("قیمت : " + data.price + " تومان ");
+                tv_amount.setText("قیمت : " + data.price + " ریال ");
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tv_content.setText(Html.fromHtml(data.content, Html.FROM_HTML_MODE_COMPACT));
