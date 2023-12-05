@@ -13,11 +13,14 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.nex3z.notificationbadge.NotificationBadge;
 import ir.yeksaco.jahesh.MainActivity;
 import ir.yeksaco.jahesh.R;
+import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.buy.basket.BasketContentModel;
 import ir.yeksaco.jahesh.models.content.ContentDetailsResponse;
@@ -56,29 +59,28 @@ public class ContentShowActivity extends AppCompatActivity {
 
         BindControls();
         LoadData(contentId);
-        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-        String basketString = sharedPreferences.getString("Basket", "");
 
-        Log.d("jaheshTag", basketString);
-        if (!basketString.isEmpty()) {
-            Gson gson = new Gson();
-
-            BasketModel basketData = gson.fromJson(basketString, BasketModel.class);
-            nbadge.setNumber(basketData.getContents().size());
-
-            if (basketData.Exist(contentId)) {
-                btn_add_to_basket.setText("حذف از سبد خرید");
-                Exist = true;
-            }
-        }
     }
 
     private void LoadData(int contentId) {
         iwebServicelistener listener = new iwebServicelistener() {
             @Override
             public void OnSuccess(Object response) {
-                data = ((ResponseBase<ContentDetailsResponse>) response).Data;
+                SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                String basketString = sharedPreferences.getString("Basket", "");
 
+                Log.d("jaheshTag", basketString);
+                if (!basketString.isEmpty()) {
+
+                    Gson gson = new Gson();
+                    BasketModel basketData = gson.fromJson(basketString, BasketModel.class);
+                    nbadge.setNumber(basketData.getContents().size());
+
+                    if (data != null &&  basketData.Exist(data.id)) {
+                        btn_add_to_basket.setText("حذف از سبد خرید");
+                        Exist = true;
+                    }
+                }
                 tv_content.setText(data.content);
                 tv_amount.setText("قیمت : " + data.price + " ریال ");
 
@@ -94,6 +96,8 @@ public class ContentShowActivity extends AppCompatActivity {
 
             @Override
             public void OnFailed(FailType type, String message) {
+
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 Log.e("jaheshTag", message);
             }
         };
@@ -145,7 +149,7 @@ public class ContentShowActivity extends AppCompatActivity {
                     btn_add_to_basket.setText("حذف از سبد خرید");
                     Exist = true;
                 } else {
-                    basketData.removeContent(new BasketContentModel(data.id, data.title, data.price));
+                    basketData.removeContentById(data.id);
                     btn_add_to_basket.setText("افزودن از سبد خرید");
                     Exist = false;
                 }

@@ -11,7 +11,7 @@
         android:id="@+id/top_card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-70dp"
         android:backgroundTint="@color/main_color"
         app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,9 +21,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/home_slider_card"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#E5E6F3"
         app:cardCornerRadius="50dp"
@@ -32,63 +32,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/iranx_semibold"
-            android:gravity="center"
-            android:text="@string/zemne_khedmat"
-            android:textSize="25dp"
-            tools:ignore="SpUsage,TextSizeCheck" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/slide2"
-            tools:ignore="ContentDescription" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true" />
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:src="@drawable/banner"-->
+<!--                android:scaleType="fitXY"-->
+<!--                />-->
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:sliderAnimationDuration="500"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderAutoCycleEnabled="true"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#cc0066"
+                app:sliderIndicatorUnselectedColor="#cc0066"
+                app:sliderScrollTimeInSec="1"
+                app:sliderStartAutoCycle="true" />
+
+        </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:layout_marginStart="10dp"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:layout_marginEnd="10dp"-->
-<!--        android:backgroundTint="#E5E6F3"-->
-<!--        app:cardCornerRadius="50dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
-<!--        <com.smarteist.autoimageslider.SliderView-->
-<!--            android:id="@+id/imageSlider"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="300dp"-->
-<!--            app:sliderAnimationDuration="600"-->
-<!--            app:sliderAutoCycleDirection="back_and_forth"-->
-<!--            app:sliderAutoCycleEnabled="true"-->
-<!--            app:sliderIndicatorAnimationDuration="600"-->
-<!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
-<!--            app:sliderIndicatorMargin="15dp"-->
-<!--            app:sliderIndicatorOrientation="horizontal"-->
-<!--            app:sliderIndicatorPadding="3dp"-->
-<!--            app:sliderIndicatorRadius="2dp"-->
-<!--            app:sliderIndicatorSelectedColor="#5A5A5A"-->
-<!--            app:sliderIndicatorUnselectedColor="#FFF"-->
-<!--            app:sliderScrollTimeInSec="1"-->
-<!--            app:sliderStartAutoCycle="true"-->
-<!--            tools:ignore="MissingClass" />-->
-
-<!--    </androidx.cardview.widget.CardView>-->
 
     <GridView
         android:id="@+id/grd_menu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="75dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="65dp"
         android:layout_weight="1"
         android:columnWidth="180dp"
         android:drawSelectorOnTop="true"

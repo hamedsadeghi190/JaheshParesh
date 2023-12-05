@@ -7,5 +7,5 @@ public class GetMainMenuResponse {
     @SerializedName("menu")
     public ArrayList<Menu> Menu;
     @SerializedName("slider")
-    public ArrayList<Slider> Slider;
+    public ArrayList<SliderModel> Slider;
 }

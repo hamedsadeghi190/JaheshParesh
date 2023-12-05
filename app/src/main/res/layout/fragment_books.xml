@@ -1,31 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.books.BooksFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="UselessParent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_under_constraction" />
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_purchased"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="170dp"
-            android:fontFamily="@font/yekan_bakh_semi_bold"
+            android:layout_height="48dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/iransans_dn_fa_bold"
             android:gravity="center"
-            android:text="این  قسمت در دست ساخت است."
+            android:text="محتوی خریده شده"
             android:textColor="@color/main_color"
-            android:textSize="24dp" />
-    </RelativeLayout>
+            android:textSize="20dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_buyed_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="80dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:visibility="visible"
+            tools:ignore="SpeakableTextPresentCheck"
+            tools:listitem="@layout/buyed_content_list_item_layout">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:id="@+id/ly_nodata"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/anw_loading"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loadingdata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/anw_no_data"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/nodata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
 </FrameLayout>

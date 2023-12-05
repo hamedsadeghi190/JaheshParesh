@@ -53,7 +53,7 @@ public class SupportFragment extends Fragment {
         webSettings.setDisplayZoomControls(false);
 
 //        webView.loadUrl("https://www.google.com");
-        webView.loadUrl("http://jpapp.yeksaco.ir/support");
+        webView.loadUrl("https://jp.tesco.co.kr/support");
     }
 
     public class MyWebChromeClient extends android.webkit.WebChromeClient {

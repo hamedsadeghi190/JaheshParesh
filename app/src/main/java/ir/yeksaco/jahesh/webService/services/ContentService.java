@@ -71,9 +71,15 @@ public class ContentService {
                 @Override
                 public void onResponse(Response<ResponseBase<ContentDetailsResponse>> response, Retrofit retrofit) {
 
-                    if (response.isSuccess()) {
+                    if (response.isSuccess() ) {
                         Log.e("jaheshTag","isSuccess : " + Id);
-                        listener.OnSuccess(response.body());
+                        if(response.body().IsSuccess) {
+                            listener.OnSuccess(response.body());
+                        }
+                        else
+                        {
+                            listener.OnFailed(FailType.Api, response.body().Message);
+                        }
                     } else {
 
                         listener.OnFailed(FailType.Api, response.errorBody().toString());

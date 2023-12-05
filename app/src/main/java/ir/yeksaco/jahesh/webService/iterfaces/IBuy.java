@@ -1,9 +1,12 @@
 package ir.yeksaco.jahesh.webService.iterfaces;
 
+import java.util.ArrayList;
+
 import ir.yeksaco.jahesh.models.buy.CreateFactorModel;
 import ir.yeksaco.jahesh.models.buy.CreateFactorResponse;
 import ir.yeksaco.jahesh.models.buy.FactorStatusResponse;
 import ir.yeksaco.jahesh.models.buy.CheckDiscountRequest;
+import ir.yeksaco.jahesh.models.content.PurchasedContent;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import retrofit.Call;
 import retrofit.http.Body;
@@ -42,4 +45,11 @@ public interface IBuy {
     })
     @GET("Buy/Payment")
     Call<ResponseBase<String>> CheckPayment(@Header("Authorization") String AuthKey,@Query("FID") String FactorId);
+
+    @Headers({
+            "content-type: application/json",
+            "Accept:application/json",
+    })
+    @GET("Buy/PurchasedContent")
+    Call<ResponseBase<ArrayList<PurchasedContent>>> PurchasedContent(@Header("Authorization") String AuthKey);
 }

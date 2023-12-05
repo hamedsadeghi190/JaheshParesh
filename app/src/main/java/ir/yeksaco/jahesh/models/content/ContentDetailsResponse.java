@@ -29,4 +29,103 @@ public class ContentDetailsResponse {
     public String description;
     @SerializedName("updateOn")
     public String updateOn;
+
+    @SerializedName("purchased")
+    public String Purchased;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTreeId() {
+        return treeId;
+    }
+
+    public void setTreeId(int treeId) {
+        this.treeId = treeId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public ArrayList<FileUrlList> getFileUrlList() {
+        return fileUrlList;
+    }
+
+    public void setFileUrlList(ArrayList<FileUrlList> fileUrlList) {
+        this.fileUrlList = fileUrlList;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUpdateOn() {
+        return updateOn;
+    }
+
+    public void setUpdateOn(String updateOn) {
+        this.updateOn = updateOn;
+    }
+
+    public String getPurchased() {
+        return Purchased;
+    }
+
+    public void setPurchased(String purchased) {
+        Purchased = purchased;
+    }
 }

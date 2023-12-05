@@ -10,8 +10,8 @@ android {
         applicationId = "ir.yeksaco.jahesh"
         minSdk = 22
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.2"
+        versionCode = 3
+        versionName = "1.3.0"
     }
 
     buildTypes {
@@ -48,6 +48,8 @@ dependencies {
     implementation("com.alimuzaffar.lib:pinentryedittext:2.0.6")
     implementation("com.github.taimoorsultani:android-sweetalert2:2.0.2")
     implementation("com.nex3z:notification-badge:1.0.4")
-   //implementation ("com.github.traex.rippleeffect:library:1.3")
-   //implementation ("com.github.smarteist:autoimageslider:1.4.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation(files("E:\\Projects\\Android\\Jahesh\\libs\\autoimageslider.aar"))
+
+
 }

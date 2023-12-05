@@ -1,7 +1,7 @@
 package ir.yeksaco.jahesh.models.buy.basket;
 
 public class BasketContentModel {
-    public   Integer ContentId;
+    public Integer ContentId;
     public  String Name;
     public  Integer Amount;
 

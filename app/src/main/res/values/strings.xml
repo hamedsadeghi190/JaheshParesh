@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">جهش</string>
+    <string name="app_name">جهش و پرش</string>
     <string name="title_home">محتوی</string>
-    <string name="title_books">کتاب</string>
+    <string name="title_books">خریدها</string>
     <string name="title_basket">سبد خرید</string>
     <string name="title_profile">پروفایل</string>
     <string name="title_support">پشتیبانی</string>
@@ -21,6 +21,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="moghadame">مقدمه</string>
+    <string name="downloadfile">دانلود فایل</string>
     <string name="amount">قیمت</string>
     <string name="tasviye">تسویه حساب</string>
     <string name="title_activity_update">UpdateActivity</string>

@@ -3,6 +3,7 @@ package ir.yeksaco.jahesh.ui.fragments.basket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,16 +22,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ir.yeksaco.jahesh.MyApp;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.adaptors.BasketAdaptor;
+import ir.yeksaco.jahesh.adaptors.SliderAdapter;
 import ir.yeksaco.jahesh.adaptors.iBasketItemClickListner;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.buy.CreateFactorModel;
 import ir.yeksaco.jahesh.models.buy.CreateFactorResponse;
 import ir.yeksaco.jahesh.models.buy.basket.BasketModel;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
+import ir.yeksaco.jahesh.models.general.SliderItem;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.BuyService;
 
@@ -70,6 +79,7 @@ public class BasketFragment extends Fragment {
         this.cl_data = view.findViewById(R.id.cl_data);
         this.cl_empty = view.findViewById(R.id.cl_empty);
 
+
         basketData = new BasketModel();
         buyService = new BuyService();
         this.contentsRecyclerView = view.findViewById(R.id.rcv_basket_contnets);
@@ -79,7 +89,6 @@ public class BasketFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserData", Context.MODE_PRIVATE);
         String basketString = sharedPreferences.getString("Basket", "");
-
 
         if (!basketString.isEmpty()) {
             Gson gson = new Gson();

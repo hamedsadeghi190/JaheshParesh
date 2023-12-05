@@ -141,7 +141,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Gson gson = new Gson();
 
             VerifyCodeResponse User = gson.fromJson(info, VerifyCodeResponse.class);
-            MyApp.ApiToken = User.Token;
+            MyApp.ApiToken = "Bearer " +User.Token;
             LoadMainMenu();
         }
     }

@@ -2,6 +2,8 @@ package ir.yeksaco.jahesh.models.buy.basket;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.*;
@@ -15,6 +17,8 @@ public class BasketModel {
     public String Status;
 
     public boolean Exist(int id) {
+        Gson gson = new Gson();
+        Log.e("jaheshTag", gson.toJson(Contents));
         for (BasketContentModel content : Contents) {
             if (content.ContentId == id) {
                 return true;
@@ -56,5 +60,13 @@ public class BasketModel {
 
     public void removeContent(BasketContentModel value) {
         Contents.remove(value);
+    }
+    public void removeContentById(Integer ContentId) {
+        for (int i = 0; i < Contents.size(); i++) {
+            if(Contents.get(i).ContentId.equals(ContentId))
+            {
+                Contents.remove(i);
+            }
+        }
     }
 }
