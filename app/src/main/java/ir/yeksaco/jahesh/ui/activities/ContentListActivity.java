@@ -30,11 +30,12 @@ import ir.yeksaco.jahesh.webService.services.ContentService;
 public class ContentListActivity extends AppCompatActivity {
 
     private RecyclerView contentsRecyclerView;
+    private RecyclerView.Adapter adapter;
     private LinearLayout ly_nodata;
     private LottieAnimationView anw_no_data,anw_loading;
     private TextView tv_parent;
     private ImageView btn_back_to_main,btn_up_level;
-    private RecyclerView.Adapter adapter;
+
     private ContentService contentService;
     public String parentName;
     ArrayList<LoadedData> cached;

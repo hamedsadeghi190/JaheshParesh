@@ -116,7 +116,7 @@
         android:id="@+id/txt_pin_entry2"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:cursorVisible="false"
+        android:cursorVisible="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:digits="1234567890"

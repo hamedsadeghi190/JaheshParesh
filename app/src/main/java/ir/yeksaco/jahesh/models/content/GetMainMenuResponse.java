@@ -8,4 +8,7 @@ public class GetMainMenuResponse {
     public ArrayList<Menu> Menu;
     @SerializedName("slider")
     public ArrayList<SliderModel> Slider;
+
+    @SerializedName("isConfirmed")
+    public boolean IsConfirmed;
 }

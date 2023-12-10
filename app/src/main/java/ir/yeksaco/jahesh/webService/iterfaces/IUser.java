@@ -4,8 +4,10 @@ package ir.yeksaco.jahesh.webService.iterfaces;
 import java.util.ArrayList;
 
 import ir.yeksaco.jahesh.models.general.ResponseBase;
+import ir.yeksaco.jahesh.models.users.ProfileData;
 import ir.yeksaco.jahesh.models.users.SendCodeRequest;
 import ir.yeksaco.jahesh.models.users.SendCodeResponse;
+import ir.yeksaco.jahesh.models.users.UserProfile;
 import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
 import ir.yeksaco.jahesh.models.users.buys.BuyHistoryModel;
@@ -69,4 +71,17 @@ public interface IUser {
     @GET("Account/BuyHistory")
     Call<ResponseBase<ArrayList<BuyHistoryModel>>> BuyHistory(@Header("Authorization") String AuthKey);
 
+    @Headers({
+            "content-type: application/json",
+            "Accept:application/json",
+    })
+    @GET("UserProfile/GetUserProfile")
+    Call<ResponseBase<ProfileData>> GetProfile(@Header("Authorization") String AuthKey);
+
+    @Headers({
+            "content-type: application/json",
+            "Accept:application/json",
+    })
+    @POST("UserProfile/Update")
+    Call<ResponseBase<String>> UpdateProfile(@Header("Authorization") String AuthKey,@Body UserProfile UserProfile);
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEDF6"
+    android:background="@color/white"
     android:layoutDirection="rtl"
     tools:context=".ui.activities.ContentShowActivity">
 
@@ -55,7 +55,7 @@
                     android:fontFamily="@font/yekan_bakh_semi_bold"
                     android:gravity="right|center_vertical"
                     android:text="سبد خرید"
-                    android:textColor="@color/white"
+                    android:textColor="#fff"
                     android:textSize="16dp"></TextView>
 
                 <LinearLayout
@@ -68,7 +68,7 @@
                         android:id="@+id/nbadge"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:textColor="@color/white"
+                        android:textColor="#fff"
                         app:nbMaxTextLength="2" />
                 </LinearLayout>
 
@@ -76,6 +76,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/panel_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -97,14 +98,14 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:visibility="gone" >
+            android:visibility="visible" >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/top_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:backgroundTint="#DCDAEF"
+                android:backgroundTint="#fff"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="5dp"
                 app:layout_constraintTop_toBottomOf="@id/appbar_content_show">
@@ -152,20 +153,27 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_files"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="150dp"
             android:layout_margin="15dp"
-            android:backgroundTint="#DCDAEF"
+            android:backgroundTint="@color/white"
             app:cardCornerRadius="15dp"
             app:cardElevation="5dp"
             app:layout_constraintTop_toBottomOf="@id/top_card">
-        </androidx.cardview.widget.CardView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_content_files"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:visibility="visible"
+                tools:listitem="@layout/content_files_list_item_layout"/>
 
+        </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/card_ghemat"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_margin="15dp"
-            android:backgroundTint="#DCDAEF"
+            android:backgroundTint="@color/white"
             app:cardCornerRadius="15dp"
             app:cardElevation="5dp"
             app:layout_constraintTop_toBottomOf="@id/card_files">
@@ -180,7 +188,6 @@
                 android:text="قیمت :"
                 android:textColor="@color/purple_700" />
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/card_buy_action"
             android:layout_width="match_parent"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">جهش و پرش</string>
+    <string name="app_name">جهش پرش</string>
     <string name="title_home">محتوی</string>
     <string name="title_books">خریدها</string>
     <string name="title_basket">سبد خرید</string>
@@ -7,6 +7,9 @@
     <string name="title_support">پشتیبانی</string>
     <string name="AppVersion">نسخه 1.0.0</string>
     <string name="mobile">شماره همراه</string>
+    <string name="email">پست الکترونیک</string>
+    <string name="Gender">جنسیت</string>
+    <string name="Age">سن</string>
     <string name="send_code">ارسال کد</string>
     <string name="login">ورود</string>
     <string name="ghavanin">با ورود ثبت نام تمامی قوانین و شرایط را می پذیرم.</string>

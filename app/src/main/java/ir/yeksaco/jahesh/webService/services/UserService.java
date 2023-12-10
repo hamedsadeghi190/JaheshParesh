@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import ir.yeksaco.jahesh.MyApp;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
+import ir.yeksaco.jahesh.models.users.ProfileData;
 import ir.yeksaco.jahesh.models.users.SendCodeRequest;
 import ir.yeksaco.jahesh.models.users.SendCodeResponse;
+import ir.yeksaco.jahesh.models.users.UserProfile;
 import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
 import ir.yeksaco.jahesh.models.users.buys.BuyHistoryModel;
@@ -172,6 +174,51 @@ public class UserService {
                     }
                 }
 
+                @Override
+                public void onFailure(Throwable t) {
+                    listener.OnFailed(FailType.Connection,t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            listener.OnFailed(FailType.Exception, ex.getMessage());
+        }
+    }
+
+
+    public void GetProfile (final iwebServicelistener listener ) {
+        try {
+            final Call<ResponseBase<ProfileData>> CallServer = ApiClient.UserClinet.GetProfile(MyApp.ApiToken);
+            CallServer.enqueue(new Callback<ResponseBase<ProfileData>>() {
+                @Override
+                public void onResponse(Response<ResponseBase<ProfileData>> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        listener.OnSuccess(response.body());
+                    } else {
+                        listener.OnFailed(FailType.Api, response.message());
+                    }
+                }
+                @Override
+                public void onFailure(Throwable t) {
+                    listener.OnFailed(FailType.Connection,t.getMessage());
+                }
+            });
+        } catch (Exception ex) {
+            listener.OnFailed(FailType.Exception, ex.getLocalizedMessage() + ex.getStackTrace().toString());
+        }
+    }
+
+    public void UpdateProfile (final iwebServicelistener listener , UserProfile userProfile) {
+        try {
+            final Call<ResponseBase<String>> CallServer = ApiClient.UserClinet.UpdateProfile(MyApp.ApiToken,userProfile);
+            CallServer.enqueue(new Callback<ResponseBase<String>>() {
+                @Override
+                public void onResponse(Response<ResponseBase<String>> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        listener.OnSuccess(response.body());
+                    } else {
+                        listener.OnFailed(FailType.Api, response.errorBody().toString());
+                    }
+                }
                 @Override
                 public void onFailure(Throwable t) {
                     listener.OnFailed(FailType.Connection,t.getMessage());

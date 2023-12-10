@@ -33,8 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSendCode.setCheckable(true);
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

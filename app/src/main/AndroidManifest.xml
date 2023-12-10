@@ -19,7 +19,9 @@
         android:theme="@style/Theme.Jahesh"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ui.activities.ProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.UpdateActivity"
             android:exported="false"
@@ -65,6 +67,15 @@
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/app_name" />
+
+        <receiver
+            android:name=".utility.MySMSBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

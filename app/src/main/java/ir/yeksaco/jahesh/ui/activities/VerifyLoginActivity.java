@@ -2,6 +2,7 @@ package ir.yeksaco.jahesh.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,17 +22,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
-import ir.yeksaco.jahesh.common.constants.Messages;
+
 import ir.yeksaco.jahesh.R;
+import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.DeviceType;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.models.users.UserDevice;
 import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
+import ir.yeksaco.jahesh.utility.MySMSBroadcastReceiver;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.UserService;
 
@@ -45,10 +50,24 @@ public class VerifyLoginActivity extends AppCompatActivity {
     ImageView img_change_numebr;
     ConstraintLayout clyWating;
     UserService userService;
-    TextInputEditText edt_pin_I, edt_pin_II, edt_pin_III, edt_pin_IV, edt_pin_V;
     String mobile;
     int verifyCode;
     final Handler handler = new Handler();
+    MySMSBroadcastReceiver mySMSBroadcastReceiver;
+     PinEntryEditText pinEntry;
+
+    private void startSMSRetrieverClient() {
+        SmsRetrieverClient client = SmsRetriever.getClient(this);
+        Task<Void> task = client.startSmsRetriever();
+        task.addOnSuccessListener(aVoid -> {
+            // Successfully started retriever, expect broadcast intent
+            // ...
+        });
+        task.addOnFailureListener(e -> {
+            // Failed to start retriever, inspect Exception for more details
+            // ...
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +85,26 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         mobile = bundle.getString("mobile");
+
+        startSMSRetrieverClient(); // Already implemented above.
+        mySMSBroadcastReceiver = new MySMSBroadcastReceiver();
+        this.registerReceiver(mySMSBroadcastReceiver, new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION));
+        mySMSBroadcastReceiver.init(new MySMSBroadcastReceiver.OTPReceiveListener() {
+            @Override
+            public void onOTPReceived(String otp) {
+
+                Log.i("jaheshTag", otp);
+                verifyCode = Integer.parseInt(otp);
+                pinEntry.setAnimateText(true);
+                pinEntry.setText(otp);
+                verify();
+            }
+
+            @Override
+            public void onOTPTimeOut() {
+
+            }
+        });
     }
 
     @Override
@@ -124,15 +163,16 @@ public class VerifyLoginActivity extends AppCompatActivity {
         txt_change_numebr = findViewById(R.id.txt_change_numebr);
         txt_resend_code = findViewById(R.id.txt_resend_code);
 
-        final PinEntryEditText pinEntry = (PinEntryEditText) findViewById(R.id.txt_pin_entry2);
+        pinEntry = (PinEntryEditText) findViewById(R.id.txt_pin_entry2);
         if (pinEntry != null) {
             pinEntry.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
                 @Override
                 public void onPinEntered(CharSequence str) {
 
-                    if (str.toString().length()==5) {
+                    if (str.toString().length() == 5) {
                         btnVerify.setEnabled(true);
                         verifyCode = Integer.parseInt(str.toString());
+                        verify();
                     } else {
                         btnVerify.setEnabled(false);
                     }
@@ -168,61 +208,64 @@ public class VerifyLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                clyWating.setVisibility(View.VISIBLE);
-                clyWating.bringToFront();
-                btnVerify.setCheckable(false);
-
-                iwebServicelistener listener = new iwebServicelistener() {
-                    @Override
-                    public void OnSuccess(Object response) {
-
-                        ResponseBase<VerifyCodeResponse> apiRresponse = (ResponseBase<VerifyCodeResponse>) response;
-                        Gson gson = new Gson();
-                        String savedInfo2 = gson.toJson(apiRresponse);
-                        Log.e("jaheshTag", savedInfo2);
-
-                        if (apiRresponse.IsSuccess) {
-
-                            VerifyCodeResponse data = (VerifyCodeResponse) apiRresponse.Data;
-                            String savedInfo = gson.toJson(data);
-
-                            SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                            myEdit.putString("Token", savedInfo);
-                            myEdit.apply();
-                            myEdit.commit();
-
-                            Intent myIntent = new Intent(VerifyLoginActivity.this, SplashScreenActivity.class);
-                            finishAffinity();
-                            startActivity(myIntent);
-                        } else {
-                            Toast.makeText(getApplicationContext(), Messages.MobileInvalid, Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-
-                    @Override
-                    public void OnFailed(FailType type, String message) {
-                        Log.e("jaheshTag", message);
-                    }
-                };
-
-                VerifyCodeRequest model = new VerifyCodeRequest();
-                model.setMobileNumber(mobile);
-                model.setVerifyCode(verifyCode);
-                model.setUserDevice(getSystemDetail());
-
-                Gson gson = new Gson();
-                String savedInfo3 = gson.toJson(model);
-                Log.e("jaheshTag", savedInfo3);
-
-                userService.VerifyCode(listener, model);
+                verify();
 
             }
         });
     }
 
+    private  void verify()
+    {
+        clyWating.setVisibility(View.VISIBLE);
+        clyWating.bringToFront();
+        btnVerify.setCheckable(false);
+
+        iwebServicelistener listener = new iwebServicelistener() {
+            @Override
+            public void OnSuccess(Object response) {
+
+                ResponseBase<VerifyCodeResponse> apiRresponse = (ResponseBase<VerifyCodeResponse>) response;
+                Gson gson = new Gson();
+                String savedInfo2 = gson.toJson(apiRresponse);
+                Log.e("jaheshTag", savedInfo2);
+
+                if (apiRresponse.IsSuccess) {
+
+                    VerifyCodeResponse data = (VerifyCodeResponse) apiRresponse.Data;
+                    String savedInfo = gson.toJson(data);
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                    myEdit.putString("Token", savedInfo);
+                    myEdit.apply();
+                    myEdit.commit();
+
+                    Intent myIntent = new Intent(VerifyLoginActivity.this, SplashScreenActivity.class);
+                    finishAffinity();
+                    startActivity(myIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), apiRresponse.Message, Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void OnFailed(FailType type, String message) {
+                Log.e("jaheshTag", message);
+            }
+        };
+
+        VerifyCodeRequest model = new VerifyCodeRequest();
+        model.setMobileNumber(mobile);
+        model.setVerifyCode(verifyCode);
+        model.setUserDevice(getSystemDetail());
+
+        Gson gson = new Gson();
+        String savedInfo3 = gson.toJson(model);
+        Log.e("jaheshTag", savedInfo3);
+
+        userService.VerifyCode(listener, model);
+    }
     @SuppressLint("HardwareIds")
     private UserDevice getSystemDetail() {
         UserDevice result = new UserDevice();
@@ -238,4 +281,10 @@ public class VerifyLoginActivity extends AppCompatActivity {
         return result;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mySMSBroadcastReceiver != null)
+            this.unregisterReceiver(mySMSBroadcastReceiver);
+    }
 }

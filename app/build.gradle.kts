@@ -10,8 +10,8 @@ android {
         applicationId = "ir.yeksaco.jahesh"
         minSdk = 22
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.3.0"
+        versionCode = 1
+        versionName = "1.0.0"
     }
 
     buildTypes {
@@ -49,6 +49,8 @@ dependencies {
     implementation("com.github.taimoorsultani:android-sweetalert2:2.0.2")
     implementation("com.nex3z:notification-badge:1.0.4")
     implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
     implementation(files("E:\\Projects\\Android\\Jahesh\\libs\\autoimageslider.aar"))
 
 

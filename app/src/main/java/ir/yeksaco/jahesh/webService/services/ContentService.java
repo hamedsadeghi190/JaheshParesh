@@ -2,6 +2,8 @@ package ir.yeksaco.jahesh.webService.services;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 import ir.yeksaco.jahesh.MyApp;
@@ -70,7 +72,8 @@ public class ContentService {
             CallServer.enqueue(new Callback<ResponseBase<ContentDetailsResponse>>() {
                 @Override
                 public void onResponse(Response<ResponseBase<ContentDetailsResponse>> response, Retrofit retrofit) {
-
+                    Gson gson = new Gson();
+                    Log.e("jaheshTag",gson.toJson(response.body()));
                     if (response.isSuccess() ) {
                         Log.e("jaheshTag","isSuccess : " + Id);
                         if(response.body().IsSuccess) {

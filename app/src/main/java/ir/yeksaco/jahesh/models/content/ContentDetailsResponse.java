@@ -31,7 +31,7 @@ public class ContentDetailsResponse {
     public String updateOn;
 
     @SerializedName("purchased")
-    public String Purchased;
+    public boolean Purchased;
 
     public int getId() {
         return id;
@@ -121,11 +121,11 @@ public class ContentDetailsResponse {
         this.updateOn = updateOn;
     }
 
-    public String getPurchased() {
+    public boolean getPurchased() {
         return Purchased;
     }
 
-    public void setPurchased(String purchased) {
+    public void setPurchased(boolean purchased) {
         Purchased = purchased;
     }
 }

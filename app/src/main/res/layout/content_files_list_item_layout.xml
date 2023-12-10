@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layoutDirection="rtl"
-    android:layout_height="76dp">
+    android:layout_height="64dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/top_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        android:backgroundTint="@color/gray_70"
-        app:cardCornerRadius="15dp"
+        android:backgroundTint="#fff"
+        app:cardCornerRadius="10dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,8 @@
                 android:id="@+id/btn_download"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="15dp"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_download"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,18 +35,31 @@
                 android:id="@+id/tv_content_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="5dp"
                 android:fontFamily="@font/yekan_bakh_light"
                 android:text="@string/downloadfile"
                 android:textColor="#000"
                 android:textSize="16dp"
                 android:gravity="right"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/img_file_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlHardcoded,SpUsage">
 
             </TextView>
+
+            <ImageView
+                android:id="@+id/img_file_icon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="5dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_file"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/todo" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

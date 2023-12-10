@@ -16,7 +16,6 @@ import java.util.List;
 
 import ir.yeksaco.jahesh.MainActivity;
 import ir.yeksaco.jahesh.MyApp;
-import ir.yeksaco.jahesh.PaymentCallBackActivity;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.FailType;
@@ -24,6 +23,7 @@ import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
 import ir.yeksaco.jahesh.models.content.GetMainMenuResponse;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
+import ir.yeksaco.jahesh.utility.AppSignatureHelper;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.AppService;
 import ir.yeksaco.jahesh.webService.services.ContentService;
@@ -41,12 +41,34 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         RemoveStausBar();
+//        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+//        String info = sharedPreferences.getString("Token", "");
+//
+//        if (info.isEmpty()) {
+//            Intent myIntent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+//            startActivity(myIntent);
+//            finish();
+//        } else {
+//            Log.i("jaheshTag", "info : " + info);
+//
+//            Gson gson = new Gson();
+//
+//            VerifyCodeResponse User = gson.fromJson(info, VerifyCodeResponse.class);
+//            MyApp.ApiToken = "Bearer " + User.Token;
+//        }
+//
+//        Intent myIntent = new Intent(SplashScreenActivity.this, ProfileActivity.class);
+//        startActivity(myIntent);
+//        finish();
 
         if (!MyApp.isNetworkAvailable()) {
             showAlert();
         }
         Initial();
         CheckVersion();
+
+        AppSignatureHelper appSignatureHelper = new AppSignatureHelper(this);
+
     }
 
     private void showAlert() {
@@ -79,6 +101,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void Initial() {
         appService = new AppService();
         contentService = new ContentService();
+
+
     }
 
     private void RemoveStausBar() {
@@ -141,7 +165,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Gson gson = new Gson();
 
             VerifyCodeResponse User = gson.fromJson(info, VerifyCodeResponse.class);
-            MyApp.ApiToken = "Bearer " +User.Token;
+            MyApp.ApiToken = "Bearer " + User.Token;
             LoadMainMenu();
         }
     }
@@ -151,10 +175,20 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void OnSuccess(Object response) {
                 GetMainMenuResponse historyResponse = ((ResponseBase<GetMainMenuResponse>) response).Data;
+
                 MyApp.MainPageData = historyResponse;
-                Intent myIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                startActivity(myIntent);
-                finish();
+                if (historyResponse.IsConfirmed) {
+                    Intent myIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                    startActivity(myIntent);
+                    finish();
+                }
+                else
+                {
+                    Intent myIntent = new Intent(SplashScreenActivity.this, ProfileActivity.class);
+                    myIntent.putExtra("from","splash");
+                    startActivity(myIntent);
+                    finish();
+                }
             }
 
             @Override

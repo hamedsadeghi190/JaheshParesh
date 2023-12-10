@@ -13,14 +13,15 @@ import java.util.ArrayList;
 
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.models.content.FileUrlList;
-import ir.yeksaco.jahesh.models.content.GetMenuResponse;
 
 public class ContentFilesAdaptor extends RecyclerView.Adapter<ContentFilesAdaptor.ViewHolder> {
 
-    private ArrayList<FileUrlList> contents;
+    private ArrayList<FileUrlList> files;
+    private boolean buyed;
 
-    public ContentFilesAdaptor(ArrayList<FileUrlList> contents) {
-        this.contents = contents;
+    public ContentFilesAdaptor(ArrayList<FileUrlList> files, boolean buyed) {
+        this.files = files;
+        this.buyed = buyed;
     }
 
     @NonNull
@@ -32,12 +33,17 @@ public class ContentFilesAdaptor extends RecyclerView.Adapter<ContentFilesAdapto
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (buyed != true) {
+            holder.btn_download.setVisibility(View.INVISIBLE);
+        }
+
+        holder.tv_content_title.setText(files.get(position).getFileName());
     }
 
     @Override
     public int getItemCount() {
-        if (contents != null) {
-            return contents.size();
+        if (files != null) {
+            return files.size();
         } else {
             return 0;
         }
@@ -46,12 +52,14 @@ public class ContentFilesAdaptor extends RecyclerView.Adapter<ContentFilesAdapto
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final View view;
         public final ImageView btn_download;
+        public final TextView tv_content_title;
 
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
             btn_download = view.findViewById(R.id.btn_download);
+            tv_content_title = view.findViewById(R.id.tv_content_title);
         }
     }
 }
