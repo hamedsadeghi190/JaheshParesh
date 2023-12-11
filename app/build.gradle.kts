@@ -36,12 +36,12 @@ dependencies {
     // Fix Duplicate class
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.navigation:navigation-fragment:2.7.3")
-    implementation("androidx.navigation:navigation-ui:2.7.3")
+    implementation("androidx.navigation:navigation-fragment:2.7.5")
+    implementation("androidx.navigation:navigation-ui:2.7.5")
     implementation("com.airbnb.android:lottie:5.2.0")
-    implementation("com.google.code.gson:gson:2.8.0")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("com.squareup.retrofit:retrofit:1.9.0")
     implementation("com.squareup.okhttp:okhttp:2.7.0")
     implementation("com.squareup.retrofit:converter-gson:2.0.0-beta2")
@@ -51,7 +51,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.11.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
-    implementation(files("E:\\Projects\\Android\\Jahesh\\libs\\autoimageslider.aar"))
+    implementation(files("..\\libs\\autoimageslider.aar"))
 
 
 }
