@@ -69,7 +69,7 @@
             android:label="@string/app_name" />
 
         <receiver
-            android:name=".utility.MySMSBroadcastReceiver"
+            android:name=".utility.SmsBroadcastReceiver"
             android:exported="true"
             android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
             <intent-filter>

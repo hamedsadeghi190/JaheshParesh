@@ -17,17 +17,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
-
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.DeviceType;
@@ -36,7 +33,8 @@ import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.models.users.UserDevice;
 import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
-import ir.yeksaco.jahesh.utility.MySMSBroadcastReceiver;
+import ir.yeksaco.jahesh.utility.AppSignatureHelper;
+import ir.yeksaco.jahesh.utility.SmsBroadcastReceiver;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.UserService;
 
@@ -53,8 +51,8 @@ public class VerifyLoginActivity extends AppCompatActivity {
     String mobile;
     int verifyCode;
     final Handler handler = new Handler();
-    MySMSBroadcastReceiver mySMSBroadcastReceiver;
-     PinEntryEditText pinEntry;
+    SmsBroadcastReceiver smsBroadcastReceiver;
+    PinEntryEditText pinEntry;
 
     private void startSMSRetrieverClient() {
         SmsRetrieverClient client = SmsRetriever.getClient(this);
@@ -87,17 +85,15 @@ public class VerifyLoginActivity extends AppCompatActivity {
         mobile = bundle.getString("mobile");
 
         startSMSRetrieverClient(); // Already implemented above.
-        mySMSBroadcastReceiver = new MySMSBroadcastReceiver();
-        this.registerReceiver(mySMSBroadcastReceiver, new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION));
-        mySMSBroadcastReceiver.init(new MySMSBroadcastReceiver.OTPReceiveListener() {
+         smsBroadcastReceiver = new SmsBroadcastReceiver();
+        this.registerReceiver(smsBroadcastReceiver, new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION));
+        smsBroadcastReceiver.init(new SmsBroadcastReceiver.OTPReceiveListener() {
             @Override
             public void onOTPReceived(String otp) {
-
-                Log.i("jaheshTag", otp);
+                // OTP Received
                 verifyCode = Integer.parseInt(otp);
                 pinEntry.setAnimateText(true);
                 pinEntry.setText(otp);
-                verify();
             }
 
             @Override
@@ -105,6 +101,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     @Override
@@ -214,8 +211,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
         });
     }
 
-    private  void verify()
-    {
+    private void verify() {
         clyWating.setVisibility(View.VISIBLE);
         clyWating.bringToFront();
         btnVerify.setCheckable(false);
@@ -266,6 +262,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
 
         userService.VerifyCode(listener, model);
     }
+
     @SuppressLint("HardwareIds")
     private UserDevice getSystemDetail() {
         UserDevice result = new UserDevice();
@@ -284,7 +281,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mySMSBroadcastReceiver != null)
-            this.unregisterReceiver(mySMSBroadcastReceiver);
+        if (smsBroadcastReceiver != null)
+            this.unregisterReceiver(smsBroadcastReceiver);
     }
 }

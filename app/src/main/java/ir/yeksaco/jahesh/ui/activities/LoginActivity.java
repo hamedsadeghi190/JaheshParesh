@@ -15,6 +15,7 @@ import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.users.SendCodeRequest;
+import ir.yeksaco.jahesh.utility.AppSignatureHelper;
 import ir.yeksaco.jahesh.webService.services.UserService;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import android.os.Build;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText edtMobile;
     MaterialButton btnSendCode;
     UserService userService;
+    String SingKey;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -39,6 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        AppSignatureHelper appSignatureHelper = new AppSignatureHelper(getApplicationContext());
+        SingKey = appSignatureHelper.getAppSignatures().get(0);
+        Log.d("jaheshTag", "onCreate: " + appSignatureHelper.getAppSignatures().get(0));  // This will give you the key.
         userService = new UserService();
         RemoveStausBar();
         bindControls();
@@ -97,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.e("jaheshTag",message);
                     }
                 };
-                userService.SendCode(listener,new SendCodeRequest(mobile));
+                userService.SendCode(listener,new SendCodeRequest(mobile,SingKey));
 
             }
         });
