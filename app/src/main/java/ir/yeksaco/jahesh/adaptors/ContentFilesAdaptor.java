@@ -33,7 +33,7 @@ public class ContentFilesAdaptor extends RecyclerView.Adapter<ContentFilesAdapto
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (buyed != true) {
+        if (!buyed && !files.get(position).isFree()) {
             holder.btn_download.setVisibility(View.INVISIBLE);
         }
 

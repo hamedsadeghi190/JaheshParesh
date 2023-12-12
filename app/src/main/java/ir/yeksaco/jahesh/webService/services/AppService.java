@@ -1,11 +1,10 @@
 package ir.yeksaco.jahesh.webService.services;
 
 import java.util.List;
+
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
-import ir.yeksaco.jahesh.models.users.SendCodeRequest;
-import ir.yeksaco.jahesh.models.users.SendCodeResponse;
 import ir.yeksaco.jahesh.webService.ApiClient;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import retrofit.Call;
@@ -20,9 +19,11 @@ public class AppService {
             CallServer.enqueue(new Callback<ResponseBase<List<VersionHistoryResponse>>>() {
                 @Override
                 public void onResponse(Response<ResponseBase<List<VersionHistoryResponse>>> response, Retrofit retrofit) {
+
                     if (response.isSuccess()) {
                         listener.OnSuccess(response.body());
-                    } else {
+                    }
+                    else {
                         listener.OnFailed(FailType.Api, response.errorBody().toString());
                     }
                 }

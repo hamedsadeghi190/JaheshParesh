@@ -1,6 +1,5 @@
 package ir.yeksaco.jahesh;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
            String target = bundle.getString("target");
            if(target.equals("basket"))
            {
+               navController.popBackStack();
                navController.navigate(R.id.navigation_basket);
            }
         }

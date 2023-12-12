@@ -7,18 +7,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import ir.yeksaco.jahesh.common.constants.Messages;
+
+import java.util.Objects;
+
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.enums.FailType;
 import ir.yeksaco.jahesh.models.users.SendCodeRequest;
 import ir.yeksaco.jahesh.utility.AppSignatureHelper;
-import ir.yeksaco.jahesh.webService.services.UserService;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
-import android.os.Build;
+import ir.yeksaco.jahesh.webService.services.UserService;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         AppSignatureHelper appSignatureHelper = new AppSignatureHelper(getApplicationContext());
         SingKey = appSignatureHelper.getAppSignatures().get(0);

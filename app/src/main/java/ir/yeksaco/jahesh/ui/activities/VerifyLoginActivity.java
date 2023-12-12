@@ -17,14 +17,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
+
 import ir.yeksaco.jahesh.R;
 import ir.yeksaco.jahesh.common.constants.Messages;
 import ir.yeksaco.jahesh.common.enums.DeviceType;
@@ -33,7 +36,6 @@ import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.models.users.UserDevice;
 import ir.yeksaco.jahesh.models.users.VerifyCodeRequest;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
-import ir.yeksaco.jahesh.utility.AppSignatureHelper;
 import ir.yeksaco.jahesh.utility.SmsBroadcastReceiver;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.UserService;
@@ -94,6 +96,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                 verifyCode = Integer.parseInt(otp);
                 pinEntry.setAnimateText(true);
                 pinEntry.setText(otp);
+                //Toast.makeText(getApplicationContext(), "On Success : "+otp, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -169,7 +172,7 @@ public class VerifyLoginActivity extends AppCompatActivity {
                     if (str.toString().length() == 5) {
                         btnVerify.setEnabled(true);
                         verifyCode = Integer.parseInt(str.toString());
-                        verify();
+                      //  verify();
                     } else {
                         btnVerify.setEnabled(false);
                     }

@@ -28,6 +28,11 @@ public class ContentService {
             CallServer.enqueue(new Callback<ResponseBase<GetMainMenuResponse>>() {
                 @Override
                 public void onResponse(Response<ResponseBase<GetMainMenuResponse>> response, Retrofit retrofit) {
+                    if(response.code()==401 || response.code()==403)
+                    {
+                        listener.OnFailed(FailType.InvalidToken, "توکن نامعتبر است");
+                        return;
+                    }
                     if (response.isSuccess()) {
                         listener.OnSuccess(response.body());
                     } else {

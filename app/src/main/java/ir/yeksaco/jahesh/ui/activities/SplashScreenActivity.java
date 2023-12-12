@@ -23,7 +23,6 @@ import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
 import ir.yeksaco.jahesh.models.content.GetMainMenuResponse;
 import ir.yeksaco.jahesh.models.general.ResponseBase;
 import ir.yeksaco.jahesh.models.users.VerifyCodeResponse;
-import ir.yeksaco.jahesh.utility.AppSignatureHelper;
 import ir.yeksaco.jahesh.webService.iterfaces.iwebServicelistener;
 import ir.yeksaco.jahesh.webService.services.AppService;
 import ir.yeksaco.jahesh.webService.services.ContentService;
@@ -41,33 +40,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         RemoveStausBar();
-//        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
-//        String info = sharedPreferences.getString("Token", "");
-//
-//        if (info.isEmpty()) {
-//            Intent myIntent = new Intent(SplashScreenActivity.this, LoginActivity.class);
-//            startActivity(myIntent);
-//            finish();
-//        } else {
-//            Log.i("jaheshTag", "info : " + info);
-//
-//            Gson gson = new Gson();
-//
-//            VerifyCodeResponse User = gson.fromJson(info, VerifyCodeResponse.class);
-//            MyApp.ApiToken = "Bearer " + User.Token;
-//        }
-//
-//        Intent myIntent = new Intent(SplashScreenActivity.this, ProfileActivity.class);
-//        startActivity(myIntent);
-//        finish();
 
         if (!MyApp.isNetworkAvailable()) {
             showAlert();
         }
         Initial();
         CheckVersion();
-
-        AppSignatureHelper appSignatureHelper = new AppSignatureHelper(this);
 
     }
 
@@ -177,24 +155,33 @@ public class SplashScreenActivity extends AppCompatActivity {
                 GetMainMenuResponse historyResponse = ((ResponseBase<GetMainMenuResponse>) response).Data;
 
                 MyApp.MainPageData = historyResponse;
+                Intent myIntent;
                 if (historyResponse.IsConfirmed) {
-                    Intent myIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
-                    startActivity(myIntent);
-                    finish();
+                    myIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
+                } else {
+                    myIntent = new Intent(SplashScreenActivity.this, ProfileActivity.class);
+                    myIntent.putExtra("from", "splash");
                 }
-                else
-                {
-                    Intent myIntent = new Intent(SplashScreenActivity.this, ProfileActivity.class);
-                    myIntent.putExtra("from","splash");
-                    startActivity(myIntent);
-                    finish();
-                }
+                startActivity(myIntent);
+                finish();
             }
 
             @Override
             public void OnFailed(FailType type, String message) {
-                Log.e("jaheshTag", message);
-                Toast.makeText(getApplicationContext(), "LoadMainMenu Error :" + message, Toast.LENGTH_LONG).show();
+                    if (type.equals( FailType.InvalidToken)) {
+                        SharedPreferences sharedPreferences = MyApp.context.getSharedPreferences("UserData", 0x0000);
+                        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                        myEdit.remove("Token");
+                        myEdit.apply();
+                        myEdit.commit();
+                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        Intent myIntent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        startActivity(myIntent);
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "LoadMainMenu Error :" + message, Toast.LENGTH_LONG).show();
+                    }
+
             }
         };
         contentService.GetMainMenu(listener);

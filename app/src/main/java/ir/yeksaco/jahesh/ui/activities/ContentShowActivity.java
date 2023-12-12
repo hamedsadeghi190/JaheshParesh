@@ -40,7 +40,7 @@ public class ContentShowActivity extends AppCompatActivity {
     private ContentService contentService;
     public String title;
     public int contentId;
-    TextView tv_title, tv_amount, tv_content, btn_add_to_basket, tv_basket;
+    TextView tv_title, tv_amount, tv_content, btn_add_to_basket, tv_basket,tv_desc;
     LinearLayout panel_data, panel_loading;
     CardView card_buy_action, card_ghemat, card_files;
     NotificationBadge nbadge;
@@ -134,8 +134,10 @@ public class ContentShowActivity extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tv_content.setText(Html.fromHtml(data.content, Html.FROM_HTML_MODE_COMPACT));
+                    tv_desc.setText(Html.fromHtml(data.getDescription(), Html.FROM_HTML_MODE_COMPACT));
                 } else {
                     tv_content.setText(Html.fromHtml(data.content));
+                    tv_desc.setText(Html.fromHtml(data.getDescription()));
                 }
 
                 panel_loading.setVisibility(View.GONE);
@@ -159,6 +161,7 @@ public class ContentShowActivity extends AppCompatActivity {
         tv_amount = findViewById(R.id.tv_amount);
         // wbv_content = findViewById(R.id.wbv_content);
         tv_content = findViewById(R.id.tv_content);
+        tv_desc = findViewById(R.id.tv_desc);
         btn_add_to_basket = findViewById(R.id.btn_add_to_basket);
         tv_title.setText(title);
         this.fileRecyclerView = findViewById(R.id.rcv_content_files);

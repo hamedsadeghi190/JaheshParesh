@@ -13,6 +13,12 @@ public class FileUrlList {
     public String FileUrl;
     @SerializedName("fileName")
     public String FileName;
+    @SerializedName("isFree")
+    public boolean IsFree;
+
+    public boolean isFree() {
+        return IsFree;
+    }
 
     public int getContentId() {
         return ContentId;
