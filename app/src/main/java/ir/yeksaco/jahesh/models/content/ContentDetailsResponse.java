@@ -3,7 +3,6 @@ package ir.yeksaco.jahesh.models.content;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ContentDetailsResponse {
     @SerializedName("id")
@@ -25,6 +24,8 @@ public class ContentDetailsResponse {
     public int price;
     @SerializedName("isActive")
     public boolean isActive;
+    @SerializedName("isFree")
+    public boolean isFree;
     @SerializedName("description")
     public String description;
     @SerializedName("updateOn")
@@ -71,6 +72,18 @@ public class ContentDetailsResponse {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
+    public boolean isPurchased() {
+        return Purchased;
     }
 
     public ArrayList<FileUrlList> getFileUrlList() {

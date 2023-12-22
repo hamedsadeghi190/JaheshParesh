@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="rtl"
-    android:layout_height="76dp">
+    android:layout_height="76dp"
+    android:layoutDirection="rtl">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/top_card"
@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:backgroundTint="@color/main_color_list"
-        app:cardCornerRadius="15dp"
- >
+        app:cardCornerRadius="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,11 +23,11 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="15dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_category"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/todo" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_content_title"
@@ -36,10 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:fontFamily="@font/yekan_bakh_light"
+                android:gravity="right"
                 android:text="@string/moghadame"
                 android:textColor="#000"
                 android:textSize="16dp"
-                android:gravity="right"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_menu_type"
                 app:layout_constraintTop_toTopOf="parent"

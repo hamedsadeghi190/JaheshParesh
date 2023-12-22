@@ -45,7 +45,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             showAlert();
         }
         Initial();
-        CheckVersion();
+        NotFound();
+        //CheckVersion();
 
     }
 
@@ -79,8 +80,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void Initial() {
         appService = new AppService();
         contentService = new ContentService();
-
-
     }
 
     private void RemoveStausBar() {
@@ -127,6 +126,19 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         };
         appService.CheckVersion(listener, Messages.CodeVersion);
+    }
+
+    private void NotFound() {
+        iwebServicelistener listener = new iwebServicelistener() {
+            @Override
+            public void OnSuccess(Object response) {
+            }
+            @Override
+            public void OnFailed(FailType type, String message) {
+                Log.e("jaheshTag", message);
+            }
+        };
+        appService.NotFound(listener);
     }
 
     private void LoadToken() {

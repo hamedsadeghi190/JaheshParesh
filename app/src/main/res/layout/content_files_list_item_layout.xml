@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="rtl"
-    android:layout_height="64dp">
+    android:layout_height="64dp"
+    android:layoutDirection="rtl">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/top_card"
@@ -12,39 +12,36 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:backgroundTint="#fff"
-        app:cardCornerRadius="10dp"
-        >
+        app:cardCornerRadius="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/btn_download"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="5dp"
                 android:layout_marginEnd="10dp"
+                android:contentDescription="@string/todo"
+                android:padding="5dp"
                 android:src="@drawable/ic_download"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/todo" />
+                />
+
 
             <TextView
                 android:id="@+id/tv_content_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/yekan_bakh_light"
+                android:gravity="right|center_vertical"
                 android:text="@string/downloadfile"
                 android:textColor="#000"
                 android:textSize="16dp"
-                android:gravity="right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/img_file_icon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlHardcoded,SpUsage">
+                android:layout_weight="1">
 
             </TextView>
 
@@ -52,15 +49,10 @@
                 android:id="@+id/img_file_icon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:padding="5dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_file"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/todo" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:contentDescription="@string/todo"
+                android:padding="5dp"
+                android:src="@drawable/ic_file" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

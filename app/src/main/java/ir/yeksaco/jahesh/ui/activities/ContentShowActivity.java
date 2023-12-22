@@ -1,5 +1,6 @@
 package ir.yeksaco.jahesh.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -40,7 +41,7 @@ public class ContentShowActivity extends AppCompatActivity {
     private ContentService contentService;
     public String title;
     public int contentId;
-    TextView tv_title, tv_amount, tv_content, btn_add_to_basket, tv_basket,tv_desc;
+    TextView tv_title, tv_amount, tv_content, btn_add_to_basket, tv_basket, tv_desc;
     LinearLayout panel_data, panel_loading;
     CardView card_buy_action, card_ghemat, card_files;
     NotificationBadge nbadge;
@@ -64,8 +65,7 @@ public class ContentShowActivity extends AppCompatActivity {
 
     }
 
-    private void initial()
-    {
+    private void initial() {
         nbadge = findViewById(R.id.nbadge);
         panel_data = findViewById(R.id.panel_data);
         panel_loading = findViewById(R.id.panel_loading);
@@ -80,24 +80,25 @@ public class ContentShowActivity extends AppCompatActivity {
         contentId = bundle.getInt("contentId");
     }
 
-    private void setloadingMode()
-    {
+    private void setloadingMode() {
         panel_loading.setVisibility(View.VISIBLE);
         panel_data.setVisibility(View.GONE);
         card_files.setVisibility(View.GONE);
         card_ghemat.setVisibility(View.GONE);
         card_buy_action.setVisibility(View.GONE);
     }
-    private void setdataLoadedMode()
-    {
+
+    private void setdataLoadedMode() {
         panel_loading.setVisibility(View.GONE);
         panel_data.setVisibility(View.VISIBLE);
         card_files.setVisibility(View.VISIBLE);
         card_ghemat.setVisibility(View.VISIBLE);
         card_buy_action.setVisibility(View.VISIBLE);
     }
+
     private void LoadData(int contentId) {
         iwebServicelistener listener = new iwebServicelistener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void OnSuccess(Object response) {
                 setdataLoadedMode();
@@ -109,8 +110,7 @@ public class ContentShowActivity extends AppCompatActivity {
 
                 if (data.getPurchased()) {
                     card_buy_action.setVisibility(View.GONE);
-                }else
-                {
+                } else {
                     card_buy_action.setVisibility(View.VISIBLE);
                 }
 
@@ -129,8 +129,15 @@ public class ContentShowActivity extends AppCompatActivity {
                         Exist = true;
                     }
                 }
-                tv_content.setText(data.content);
-                tv_amount.setText("قیمت : " + data.price + " ریال ");
+
+                if (data.isFree()) {
+                    tv_amount.setText("قیمت : " + " رايگان ");
+                    card_buy_action.setVisibility(View.GONE);
+                }
+               else
+                {
+                    tv_amount.setText("قیمت : " + data.price + " ریال ");
+                }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     tv_content.setText(Html.fromHtml(data.content, Html.FROM_HTML_MODE_COMPACT));
@@ -173,7 +180,7 @@ public class ContentShowActivity extends AppCompatActivity {
                 new ir.yeksaco.jahesh.ui.activities.ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        if (data.getPurchased()) {
+                        if (data.getPurchased() || data.fileUrlList.get(position).isFree() ) {
                             FileUrlList content = data.fileUrlList.get(position);
 
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(content.FileUrl));

@@ -19,7 +19,7 @@ public class MyApp extends Application {
     public static LayoutInflater Inflator;
     public static String ApiToken = null;
     public static GetMainMenuResponse MainPageData ;
-    public static String BaseUrl = "http://jpapi.yeksaco.ir/JP/App/";
+    public static String BaseUrl = "http://api.jpgroup.ir/JP/App/";
     //public static String BaseUrl = "http://192.168.1.102:366/api/";
     public static String Tag = "sfp";
 

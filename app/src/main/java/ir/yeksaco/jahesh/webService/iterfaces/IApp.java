@@ -1,17 +1,15 @@
 package ir.yeksaco.jahesh.webService.iterfaces;
 
-import ir.yeksaco.jahesh.models.general.ResponseBase;
-import ir.yeksaco.jahesh.models.users.SendCodeRequest;
-import ir.yeksaco.jahesh.models.users.SendCodeResponse;
-import ir.yeksaco.jahesh.models.app.*;
 import java.util.List;
+
+import ir.yeksaco.jahesh.models.app.VersionHistoryResponse;
+import ir.yeksaco.jahesh.models.content.GetMainMenuResponse;
+import ir.yeksaco.jahesh.models.general.ResponseBase;
 import retrofit.Call;
-import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.Headers;
-import retrofit.http.POST;
-import retrofit.http.Query;
 import retrofit.http.Header;
+import retrofit.http.Headers;
+import retrofit.http.Query;
 public interface IApp {
 
     @Headers({
@@ -20,4 +18,11 @@ public interface IApp {
     })
     @GET("AppVersion/CheckVersion")
     Call<ResponseBase<List<VersionHistoryResponse>>> CheckVersion(@Query("VersionCode") String VersionCode);
+
+    @Headers({
+            "content-type: application/json",
+            "Accept:application/json",
+    })
+    @GET("AppVersion/NotFound")
+    Call<ResponseBase<String>> NotFound();
 }

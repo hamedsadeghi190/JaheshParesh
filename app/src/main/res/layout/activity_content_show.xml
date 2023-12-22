@@ -147,7 +147,7 @@
                                         android:layout_marginTop="15dp">
 
                                         <TextView
-                                            android:id="@+id/tv_content"
+                                            android:id="@+id/tv_desc"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:fontFamily="@font/yekan_bakh_light"
@@ -203,7 +203,7 @@
                                         android:layout_marginTop="15dp">
 
                                         <TextView
-                                            android:id="@+id/tv_desc"
+                                            android:id="@+id/tv_content"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:fontFamily="@font/yekan_bakh_light"

@@ -41,7 +41,7 @@ public class PaymentCallBackActivity extends AppCompatActivity {
 
             Log.i("jahesh tag", rdata);
 
-            rdata = rdata.replace("http://jpapp.yeksaco.ir/payment?", "");
+            rdata = rdata.replace("http://jpgroup.ir/payment?", "");
             String[] parts = rdata.split("&");
 
             // حال rdata شامل داده هاییست که بعد intent:// در قسمت آموزش سمت وب فرستاده شده است می باشد.

@@ -50,7 +50,7 @@ public class SupportFragment extends Fragment {
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
-        webView.loadUrl("http://jpapp.yeksaco.ir/support");
+        webView.loadUrl("http://jpgroup.ir/support");
     }
 
     public class MyWebChromeClient extends android.webkit.WebChromeClient {
